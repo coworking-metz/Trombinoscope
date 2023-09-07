@@ -13,13 +13,13 @@ const data = reactive({
     users: []
 });
 const taille = computed(() => {
-    return data.users.length > 8 ? 'beaucoup' : 'pas-beaucoup';
+    return data.users.length > 10 ? 'beaucoup' : 'pas-beaucoup';
 });
 onMounted(() => {
     console.log('Trombinoscope mounted');
     fetch(`https://tickets.coworking-metz.fr/api/current-users?key=${import.meta.env.VITE_APP_PORTAIL_TOKEN}&delay=15`)
         .then(response => response.json())
-        .then(users => data.users = users.slice(0, 90));
+        .then(users => data.users = users.slice(0, 100));
 });
 </script>
 <style>
@@ -50,6 +50,8 @@ onMounted(() => {
 .user {
     /* max-width: 20vw; */
     aspect-ratio: 1;
+    width: 20vw;
+
 }
 
 [data-taille="beaucoup"] .user {
