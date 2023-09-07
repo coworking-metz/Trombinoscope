@@ -56,7 +56,7 @@ onMounted(() => {
 [data-taille="beaucoup"] .user {
     /* max-height: 13vw; */
     width: 16vw;
-    max-width: 15vh;
+    max-width: 18vh;
 }
 
 .polaroids::after {
