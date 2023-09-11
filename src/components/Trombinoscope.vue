@@ -16,7 +16,7 @@ const taille = computed(() => {
     if(data.users.length < 10) {
         return 'petit';
     }
-    if(data.users.length < 16) {
+    if(data.users.length < 17) {
         return 'moyen';
     }
     return 'grand';
