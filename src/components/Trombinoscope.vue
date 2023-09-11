@@ -13,7 +13,13 @@ const data = reactive({
     users: []
 });
 const taille = computed(() => {
-    return data.users.length > 10 ? 'beaucoup' : 'pas-beaucoup';
+    if(data.users.length < 10) {
+        return 'petit';
+    }
+    if(data.users.length < 16) {
+        return 'moyen';
+    }
+    return 'grand';
 });
 onMounted(() => {
     console.log('Trombinoscope mounted');
@@ -53,10 +59,14 @@ onMounted(() => {
 
 }
 
-[data-taille="beaucoup"] .user {
+[data-taille="petit"] .user {
     /* max-height: 13vw; */
     width: 16vw;
     max-width: 18vh;
+}
+
+[data-taille="moyen"] .user {
+    max-width: 23vh;
 }
 
 .polaroids::after {
