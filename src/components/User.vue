@@ -38,13 +38,15 @@ function randomAngle() {
 }
 </script>
 <style scoped>
-.user {}
+.user img{
+    box-shadow: -.3vw .3vw .5vw rgba(0,0,0,0.3);
+}
 
 .user img {
     /* transition: all .5s ease-in-out; */
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    /* object-fit: contain; */
 }
 </style>

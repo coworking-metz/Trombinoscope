@@ -5,7 +5,7 @@ import Trombinoscope from '@/components/Trombinoscope.vue';
 </script>
 
 <template>
-  <NavBar />
+  <!-- <NavBar />-->
   <Trombinoscope />
   <footer>
     Choisissez votre polaroïd sur le site du coworking, dans le menu "Mon compte".

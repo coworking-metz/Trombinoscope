@@ -14,12 +14,12 @@ const data = reactive({
 });
 const taille = computed(() => {
     if(data.users.length < 10) {
-        return 'petit';
+        return 'grand';
     }
-    if(data.users.length < 17) {
+    if(data.users.length < 18) {
         return 'moyen';
     }
-    return 'grand';
+    return 'petit';
 });
 onMounted(() => {
     console.log('Trombinoscope mounted');
