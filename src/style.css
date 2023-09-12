@@ -11,7 +11,7 @@ body {
 body {
   background: url(/src/assets/fond.jpg) no-repeat;
   background-size: cover;
-  font-size: 0.6vw;
+  font-size: 0.8vw;
 }
 
 #app {
