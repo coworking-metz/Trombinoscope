@@ -55,7 +55,7 @@ onMounted(() => {
 
 .user {
     /* max-width: 20vw; */
-    width: 20vw;
+    width: 17vw;
 
 }
 
@@ -66,7 +66,7 @@ onMounted(() => {
 }
 
 [data-taille="moyen"] .user {
-    max-width: 23vh;
+    width: 23vh;
 }
 
 .polaroids::after {

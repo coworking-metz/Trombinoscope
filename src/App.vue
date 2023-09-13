@@ -9,7 +9,7 @@ import Trombinoscope from '@/components/Trombinoscope.vue';
   <Trombinoscope />
   <footer>
     Choisissez votre polaroïd sur le site du coworking, dans le menu "Mon compte".<br>
-    En rouge: Solde négatif ou adhésion manquante
+    <b style="color:red">En rouge: Solde négatif ou adhésion manquante</b>
   </footer>
 </template>
 
