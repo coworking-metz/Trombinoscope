@@ -9,8 +9,6 @@ body {
 }
 
 body {
-  background: url(/src/assets/fond.webp) no-repeat;
-  background-size: cover;
   font-size: 0.8vw;
 }
 

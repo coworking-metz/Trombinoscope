@@ -2,21 +2,21 @@
     <div class="user" v-if="user" :style="style">
         <div class="actions buttons are-small">
             <div>
-                <a class="button " target="_blank" :href="edit_url">
+                <a class="button " title="Fiche" target="_blank" :href="edit_url">
                     <span class="icon is-small">
                         <i class="fas fa-user"></i>
                     </span>
                 </a>
             </div>
             <div>
-                <a class="button " target="_blank" :href="pdf_url">
+                <a class="button " target="_blank" title="Polaroïd format pdf" :href="pdf_url">
                     <span class="icon is-small">
                         <i class="fas fa-file-pdf"></i>
                     </span>
                 </a>
             </div>
             <div>
-                <a class="button " target="_blank" :href="polaroidHd">
+                <a class="button " target="_blank" :href="polaroidHd" title="Polaroïd format image">
                     <span class="icon is-small">
                         <i class="fas fa-file-image"></i>
                     </span>
