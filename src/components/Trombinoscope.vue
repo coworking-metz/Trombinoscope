@@ -1,6 +1,6 @@
 <template>
     <div class="fond" v-if="data.reglages?.fond?.image" :style="{ 'background': data.reglages.fond.couleur }">
-        <div :style="{ 'background': 'url(' + data.reglages.fond.image + ')', 'opacity': data.reglages.fond.opacity }">
+        <div :style="{ 'background': 'url(' + data.reglages.fond.image + ')', 'background-size': data.reglages.fond.mode, 'opacity': data.reglages.fond.opacity }">
         </div>
     </div>
     <div class="fond" v-else>
