@@ -65,10 +65,10 @@ const edit_url = computed(() => {
     return 'https://www.coworking-metz.fr/wp-admin/user-edit.php?user_id=' + props.user.wpUserId + '&wp_http_referer=%2Fwp-admin%2Fusers.php';
 });
 const polaroid = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '.jpg?1';
+    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '.jpg?2';
 })
 const polaroidHd = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '-hd.jpg?1';
+    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '-hd.jpg?2';
 })
 const pdf_url = computed(() => {
     return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId + '';
