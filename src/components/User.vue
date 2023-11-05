@@ -1,5 +1,8 @@
 <template>
-    <div class="user" v-if="user" :style="style">
+    <div class="user bgloader" v-if="user" :style="style">
+        <template v-if="avent.tirage == user.wpUserId">
+            <img class="picto" :src="reglages.avent.picto_avent">
+        </template>
         <div class="actions buttons are-small">
             <div>
                 <a class="button " title="Fiche" target="_blank" :href="edit_url">
@@ -23,11 +26,17 @@
                 </a>
             </div>
         </div>
-        <img :src="polaroid" :data-angle="data.angle" :class="{ 'wanted': wanted }">
+        <img :src="polaroid" :data-angle="data.angle" class="pola" :class="{ 'wanted': wanted }">
     </div>
 </template>
 <script setup>
-import { defineProps, computed, reactive, onMounted, watch } from 'vue';
+import { computed, reactive, onMounted, watch } from 'vue';
+import { sAvent } from "@/stores/avent";
+import { sReglages } from "@/stores/reglages";
+
+const avent = sAvent();
+const reglages = sReglages();
+
 const data = reactive({
     angle: null,
     vitesse: null
@@ -91,14 +100,19 @@ function randomSignFlip(num) {
 .user {
     display: block;
     aspect-ratio: 400/480;
-    background: white no-repeat center;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xml:space="preserve"><path fill="%23ccc" d="M73 50c0-12.7-10.3-23-23-23S27 37.3 27 50m3.9 0c0-10.5 8.5-19.1 19.1-19.1S69.1 39.5 69.1 50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur=".5s" from="0 50 50" to="360 50 50" repeatCount="indefinite"/></path></svg>');
-    background-size: 50% auto;
     position: relative;
 }
 
 .user:not(:hover) .actions {
     display: none;
+}
+
+.picto {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    transform: rotate(35deg) translate(25%,-50%);
 }
 
 .actions {
@@ -110,11 +124,11 @@ function randomSignFlip(num) {
     justify-content: center;
 }
 
-.user img {
+.user img.pola {
     box-shadow: -.3vw .3vw .5vw rgba(0, 0, 0, 0.3);
 }
 
-.user img {
+.user img.pola {
     /* transition: all .5s ease-in-out; */
     display: block;
     width: 100%;
@@ -124,5 +138,4 @@ function randomSignFlip(num) {
 
 .wanted {
     outline: .25vw dashed red;
-}
-</style>
+}</style>
