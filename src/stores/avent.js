@@ -13,6 +13,7 @@ const api = useApi();
 export const sAvent = defineStore("avent", {
     state: () => ({
         tirage: false,
+        tirages: false,
     }),
     getters: {
     },
@@ -24,9 +25,11 @@ export const sAvent = defineStore("avent", {
             const reglages = sReglages();
             if (!estDansPlageDeDates(reglages.avent.debut_avent, reglages.avent.fin_avent)) return;
             console.log('Avent !')
-            this.getTirageJour().then(() => {
-                if (this.tirage) return
-                this.faireTirage();
+            this.getTirages().then(() => {
+                this.getTirageJour().then(() => {
+                    if (this.tirage) return
+                    this.faireTirage();
+                })
             })
         },
         /**
@@ -38,7 +41,10 @@ export const sAvent = defineStore("avent", {
             if (isCurrentTimeAfter(reglages.avent.heure_tirage)) {
                 console.log('Tirage !')
                 const user = users.data[Math.floor(Math.random() * users.data.length)];
-                console.log(user.wpUserId)
+                if (Object.values(this.tirages).includes(user.wpUserId)) {
+                    console.log('Deja lauréat !');
+                    return this.faireTirage();
+                }
                 return api.post('trombi/avent/tirage', { date_tirage: dateDuJour(), user_id: user.wpUserId }).then(data => {
                     this.getTirageJour()
                 })
@@ -53,6 +59,15 @@ export const sAvent = defineStore("avent", {
         getTirageJour() {
             return api.get('trombi/avent/tirage', { date_tirage: dateDuJour() }).then(tirage => {
                 this.tirage = tirage;
+            })
+        },
+        /**
+         * Récupère les tirage précédents à partir de l'API.
+         * @returns {Promise} Promesse qui résout avec les données de tirage.
+         */
+        getTirages() {
+            return api.get('trombi/avent/tirages').then(tirages => {
+                this.tirages = tirages;
             })
         }
     },
