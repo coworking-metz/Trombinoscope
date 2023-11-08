@@ -1,7 +1,7 @@
 <template>
     <div class="user bgloader" v-if="user" :style="style">
         <template v-if="avent.tirage == user.wpUserId">
-            <img class="picto" :src="reglages.avent.picto_avent">
+            <img class="picto" :src="reglages?.avent.picto_avent">
         </template>
         <div class="actions buttons are-small">
             <div>

@@ -23,7 +23,7 @@ export const sAvent = defineStore("avent", {
          */
         load() {
             const reglages = sReglages();
-            if (!estDansPlageDeDates(reglages.avent.debut_avent, reglages.avent.fin_avent)) return;
+            if (!estDansPlageDeDates(reglages?.avent.debut_avent, reglages?.avent.fin_avent)) return;
             console.log('Avent !')
             this.getTirages().then(() => {
                 this.getTirageJour().then(() => {
@@ -38,7 +38,7 @@ export const sAvent = defineStore("avent", {
         faireTirage() {
             const reglages = sReglages();
             const users = sUsers();
-            if (isCurrentTimeAfter(reglages.avent.heure_tirage)) {
+            if (isCurrentTimeAfter(reglages?.avent.heure_tirage)) {
                 console.log('Tirage !')
                 const user = users.data[Math.floor(Math.random() * users.data.length)];
                 if (Object.values(this.tirages).includes(user.wpUserId)) {
