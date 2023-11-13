@@ -1,7 +1,12 @@
 <template>
     <div class="user bgloader" v-if="user" :style="style">
-        <template v-if="avent.tirage == user.wpUserId">
-            <img class="picto" :src="reglages?.avent.picto_avent">
+        <template v-if="data.ready">
+            <!-- <etoiles v-if="data.userData" :ranking="data.userData.ranking"/>     -->
+            <medaille v-if="data.userData" :ranking="data.userData.ranking" :userData="data.userData"></medaille>
+
+            <template v-if="avent.tirage == user.wpUserId">
+                <img class="picto" :src="reglages?.avent.picto_avent">
+            </template>
         </template>
         <div class="actions buttons are-small">
             <div>
@@ -26,24 +31,32 @@
                 </a>
             </div>
         </div>
-        <img :src="polaroid" :data-angle="data.angle" class="pola" :class="{ 'wanted': wanted }">
+        <img :src="polaroid" ref="img" :data-angle="data.angle" class="pola" :class="{ 'wanted': wanted }">
     </div>
 </template>
 <script setup>
-import { computed, reactive, onMounted, watch } from 'vue';
+import Etoiles from '@/components/Etoiles.vue';
+import Medaille from '@/components/Medaille.vue';
+
+import { computed, reactive, onMounted, ref } from 'vue';
 import { sAvent } from "@/stores/avent";
 import { sReglages } from "@/stores/reglages";
+
+const img = ref(null);
 
 const avent = sAvent();
 const reglages = sReglages();
 
 const data = reactive({
+    ready: false,
     angle: null,
-    vitesse: null
+    vitesse: null,
+    userData: null
 });
 
 onMounted(() => {
-
+    img.value.addEventListener('load', () => data.ready = true)
+    data.userData = reglages.getUser(props.user.wpUserId);
     data.vitesse = randomTime() / 10;
     setTimeout(() => {
         setInterval(() => {
@@ -61,6 +74,9 @@ const wanted = computed(() => {
     if (props.user.balance < 0) return true;
     if (!props.user.membershipOk) return true;
 });
+
+
+
 const style = computed(() => {
 
 
@@ -112,7 +128,7 @@ function randomSignFlip(num) {
     top: 0;
     right: 0;
     width: 40%;
-    transform: rotate(35deg) translate(25%,-50%);
+    transform: rotate(35deg) translate(25%, -50%);
 }
 
 .actions {
@@ -138,4 +154,5 @@ function randomSignFlip(num) {
 
 .wanted {
     outline: .25vw dashed red;
-}</style>
+}
+</style>

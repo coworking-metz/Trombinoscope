@@ -23,6 +23,7 @@ export const sAvent = defineStore("avent", {
          */
         load() {
             const reglages = sReglages();
+            if (!reglages?.avent) return;
             if (!estDansPlageDeDates(reglages?.avent.debut_avent, reglages?.avent.fin_avent)) return;
             console.log('Avent !')
             this.getTirages().then(() => {

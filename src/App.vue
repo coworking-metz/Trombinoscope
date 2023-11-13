@@ -16,7 +16,9 @@ const ready = computed(() => {
 })
 onMounted(() => {
   reglages.load();
+  reglages.loadRanking();
   users.load();
+  
 })
 </script>
 
