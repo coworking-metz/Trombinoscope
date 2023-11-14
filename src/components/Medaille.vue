@@ -35,10 +35,10 @@ const ranking = computed(() => {
 const annee = computed(() => {
     if (!props.userData) return;
     if (props.userData.createdAt.includes('2015-09-22')) return 2014;
-    return props.userData.createdAt.split('-')[0]
+    return Number(props.userData.createdAt.split('-')[0])
 })
 onMounted(() => {
-    console.log(ranking.value)
+    // console.log(ranking.value)
 
 })
 
@@ -50,7 +50,7 @@ onMounted(() => {
     right: 3%;
     z-index: 2;
     width: 18%;
-    transform: rotate(32deg);
+    transform: rotate(10deg);
 }
 
 .medaille svg {}

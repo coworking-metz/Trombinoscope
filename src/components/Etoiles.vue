@@ -13,20 +13,23 @@ import starEmpty from '@/components/etoiles/StarEmpty.vue';
 import starHalf from '@/components/etoiles/StarHalf.vue';
 import starFull from '@/components/etoiles/StarFull.vue';
 import { sReglages } from "@/stores/reglages";
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 const props = defineProps(['ranking']);
 const reglages = sReglages();
 
+const data =reactive({
+    nbEtoiles:3
+})
 const ranking = computed(() => {
     const totalPeople = reglages.users.length;
     const rank = props.ranking;
     if (totalPeople < 1 || rank < 1 || rank > totalPeople) return null; // invalid input
-    return 5 - (5 * (rank - 1) / (totalPeople - 1));
+    return data.nbEtoiles - (data.nbEtoiles * (rank - 1) / (totalPeople - 1));
 });
 
 const etoiles = computed(() => {
     const ret = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < data.nbEtoiles; i++) {
         if (ranking.value >= i+1) {
             ret.push('full');
         } else if (Math.ceil(ranking.value) == i+1) {

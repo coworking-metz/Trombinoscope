@@ -7,7 +7,8 @@ export const sReglages = defineStore("reglages", {
     persist: true,
     state: () => ({
         data: false,
-        users: false
+        users: false,
+        rankingMode: false
     }),
     getters: {
         getUser: (state) => (wpUserId) => {
@@ -24,6 +25,15 @@ export const sReglages = defineStore("reglages", {
         }
     },
     actions: {
+        setRankingMode() {
+            this.rankingMode = 'medaille';
+            return;
+            if (Math.round(Math.random(0, 1))) {
+                this.rankingMode = 'etoiles'
+            } else {
+                this.rankingMode = 'medaille';
+            }
+        },
         loadRanking() {
             return new Promise((resolve, reject) => {
                 const cacheKey = 'rankingData';

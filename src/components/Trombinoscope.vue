@@ -1,9 +1,17 @@
 <template>
-    <Fond/>
+    <div class="compteur">
+    <strong>{{ users.data.length }}</strong> personnes présent(e){{ users.data.length > 1 ? 's' : '' }},
+        <template v-if="users.data.length < 28">
+            {{ 28 - users.data.length }} places disponibles
+        </template>
+        <template v-else>, <strong>nous sommes complets!</strong>
+        </template>
+    </div>
+    <Fond />
     <div class="trombinoscope" :data-taille="users.taille">
         <div class="polaroids">
             <template v-for="user in users.data" :key="user.wpUserId">
-                    <User :user="user"/>
+                <User :user="user" />
             </template>
         </div>
     </div>
@@ -27,6 +35,12 @@ onMounted(() => {
 
 </script>
 <style>
+.compteur {
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+}
+
 .fond {
     position: fixed;
     z-index: -1;

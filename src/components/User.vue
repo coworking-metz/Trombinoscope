@@ -1,8 +1,11 @@
 <template>
     <div class="user bgloader" v-if="user" :style="style">
         <template v-if="data.ready">
-            <!-- <etoiles v-if="data.userData" :ranking="data.userData.ranking"/>     -->
-            <medaille v-if="data.userData" :ranking="data.userData.ranking" :userData="data.userData"></medaille>
+
+            <template v-if="data.userData">
+                <etoiles v-if="reglages.rankingMode=='etoiles'" :ranking="data.userData.ranking"/>
+                <medaille v-if="reglages.rankingMode=='medaille'" :ranking="data.userData.ranking" :userData="data.userData"/>
+            </template>
 
             <template v-if="avent.tirage == user.wpUserId">
                 <img class="picto" :src="reglages?.avent.picto_avent">
