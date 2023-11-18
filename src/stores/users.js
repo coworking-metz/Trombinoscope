@@ -24,7 +24,7 @@ export const sUsers = defineStore("users", {
                 key: import.meta.env.VITE_APP_PORTAIL_TOKEN,
                 delay: import.meta.env.VITE_APP_TICKET_DELAI || 15
             }
-            api.get(`https://tickets.coworking-metz.fr/api/current-users`, payload).then(users => {
+            api.get(`${import.meta.env.VITE_TICKETS_API_ROOT}current-users`, payload).then(users => {
                 this.data = users;
             });
 

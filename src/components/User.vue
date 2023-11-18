@@ -3,13 +3,17 @@
         <template v-if="data.ready">
 
             <template v-if="data.userData">
-                <etoiles v-if="reglages.rankingMode=='etoiles'" :ranking="data.userData.ranking"/>
-                <medaille v-if="reglages.rankingMode=='medaille'" :ranking="data.userData.ranking" :userData="data.userData"/>
+                <etoiles v-if="reglages.rankingMode == 'etoiles'" :ranking="data.userData.ranking" />
+                <medaille v-if="reglages.rankingMode == 'medaille'" :ranking="data.userData.ranking"
+                    :userData="data.userData" />
             </template>
 
             <template v-if="avent.tirage == user.wpUserId">
                 <img class="picto" :src="reglages?.avent.picto_avent">
             </template>
+        </template>
+        <template v-if="anniversaire>0">
+            <img class="picto" :src="reglages.data?.divers?.picto_anniversaire">
         </template>
         <div class="actions buttons are-small">
             <div>
@@ -44,6 +48,7 @@ import Medaille from '@/components/Medaille.vue';
 import { computed, reactive, onMounted, ref } from 'vue';
 import { sAvent } from "@/stores/avent";
 import { sReglages } from "@/stores/reglages";
+import { calculateAge } from '@/mixins/utils';
 
 const img = ref(null);
 
@@ -79,7 +84,9 @@ const wanted = computed(() => {
 });
 
 
-
+const anniversaire = computed(() => {
+    return calculateAge(props.user.date_naissance)
+})
 const style = computed(() => {
 
 
@@ -93,15 +100,25 @@ const edit_url = computed(() => {
     return 'https://www.coworking-metz.fr/wp-admin/user-edit.php?user_id=' + props.user.wpUserId + '&wp_http_referer=%2Fwp-admin%2Fusers.php';
 });
 const polaroid = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '.jpg?2';
+    return polaroid_url();
 })
 const polaroidHd = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/' + props.user.wpUserId + '-hd.jpg?2';
+    return polaroid_url(true);
 })
 const pdf_url = computed(() => {
     return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId + '';
 })
+function polaroid_url(hd = false) {
+    let name = props.user.wpUserId;
+    if (anniversaire.value) {
+        name += '-anniversaire';
+    }
+    if (hd) {
+        name += '-hd';
+    }
+    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?2';
 
+}
 function randomTime() {
     return Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000;
 }
@@ -130,8 +147,8 @@ function randomSignFlip(num) {
     position: absolute;
     top: 0;
     right: 0;
-    width: 40%;
-    transform: rotate(35deg) translate(25%, -50%);
+    width: 25%;
+    transform: rotate(35deg) translate(0, -50%);
 }
 
 .actions {

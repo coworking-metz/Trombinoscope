@@ -50,7 +50,7 @@ export const sReglages = defineStore("reglages", {
                     }
                 }
 
-                api.get('https://tickets.coworking-metz.fr/api/users-stats?key=bupNanriCit1&period=last-365-days&sort=createdAt')
+                api.get(`${import.meta.env.VITE_TICKETS_API_ROOT}users-stats?key=bupNanriCit1&period=last-365-days&sort=createdAt`)
                     .then(users => {
                         localStorage.setItem(cacheKey, now);
                         this.users = [...users].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));

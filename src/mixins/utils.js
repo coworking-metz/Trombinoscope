@@ -1,3 +1,17 @@
+export function calculateAge(birthDateString) {
+  const today = new Date();
+  const birthDate = new Date(birthDateString);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+
+  // Check if today is the anniversary
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  // Return age if today is the anniversary, otherwise return null
+  return (m === 0 && today.getDate() === birthDate.getDate()) ? age : null;
+}
 
 export function isCurrentTimeAfter(heure) {
   const now = new Date();
