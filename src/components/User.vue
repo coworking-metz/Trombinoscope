@@ -85,7 +85,7 @@ const wanted = computed(() => {
 
 
 const anniversaire = computed(() => {
-    return calculateAge(props.user.date_naissance)
+    return calculateAge(props.user.birthDate)
 })
 const style = computed(() => {
 
