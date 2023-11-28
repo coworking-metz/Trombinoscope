@@ -1,5 +1,5 @@
 <template>
-    <div class="user bgloader" v-if="user" :style="style">
+    <div class="user bgloader" :class="{ 'laureat-avent': afficherLaureat }" v-if="user" :style="style">
         <template v-if="data.ready">
 
             <template v-if="data.userData">
@@ -8,11 +8,12 @@
                     :userData="data.userData" />
             </template>
 
-            <template v-if="avent.tirage == user.wpUserId">
+            <template v-if="laureatAvent">
+                <div class="mention">Gagnant du jour!</div>
                 <img class="picto" :src="reglages?.avent.picto_avent">
             </template>
         </template>
-        <template v-if="anniversaire>0">
+        <template v-if="anniversaire > 0">
             <img class="picto" :src="reglages.data?.divers?.picto_anniversaire">
         </template>
         <div class="actions buttons are-small">
@@ -45,7 +46,7 @@
 import Etoiles from '@/components/Etoiles.vue';
 import Medaille from '@/components/Medaille.vue';
 
-import { computed, reactive, onMounted, ref } from 'vue';
+import { computed, reactive, onMounted, ref, watch } from 'vue';
 import { sAvent } from "@/stores/avent";
 import { sReglages } from "@/stores/reglages";
 import { calculateAge } from '@/mixins/utils';
@@ -56,6 +57,7 @@ const avent = sAvent();
 const reglages = sReglages();
 
 const data = reactive({
+    afficherLaureat: false,
     ready: false,
     angle: null,
     vitesse: null,
@@ -63,7 +65,9 @@ const data = reactive({
 });
 
 onMounted(() => {
-    img.value.addEventListener('load', () => data.ready = true)
+    img.value.addEventListener('load', () => {
+        data.ready = true
+    })
     data.userData = reglages.getUser(props.user.wpUserId);
     data.vitesse = randomTime() / 10;
     setTimeout(() => {
@@ -71,12 +75,27 @@ onMounted(() => {
             data.angle = randomAngle();
         }, randomTime() + 2000)
     }, randomTime());
+
     if (wanted.value) {
         console.log('wanted', props.user.lastName);
     }
 
 });
 const props = defineProps(['user']);
+const laureatAvent = computed(() => avent.tirage == props.user.wpUserId)
+const afficherLaureat = computed(() => data.ready && data.afficherLaureat && laureatAvent.value)
+
+watch(laureatAvent, (newVal, oldVal) => {
+    console.log('laureatAvent', newVal)
+    if (newVal) {
+        data.afficherLaureat = true;
+        document.body.classList.add('grise')
+        setTimeout(() => {
+            document.body.classList.remove('grise')
+            data.afficherLaureat = false;
+        }, 5000);
+    }
+});
 
 const wanted = computed(() => {
     if (props.user.balance < 0) return true;
@@ -88,7 +107,7 @@ const anniversaire = computed(() => {
     return calculateAge(props.user.birthDate)
 })
 const style = computed(() => {
-
+    if (data.afficherLaureat) return;
 
     return {
         'transition': `all ${data.vitesse}ms ease`,
@@ -132,18 +151,19 @@ function randomSignFlip(num) {
     return Math.random() < 0.5 ? -num : num;
 }
 </script>
-<style scoped>
+<style>
 .user {
     display: block;
     aspect-ratio: 400/480;
     position: relative;
+    transition: all 0.5s ease;
 }
 
 .user:not(:hover) .actions {
     display: none;
 }
 
-.picto {
+.user .picto {
     position: absolute;
     top: 0;
     right: 0;
@@ -151,7 +171,7 @@ function randomSignFlip(num) {
     transform: rotate(35deg) translate(0, -50%);
 }
 
-.actions {
+.user .actions {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -160,6 +180,18 @@ function randomSignFlip(num) {
     justify-content: center;
 }
 
+.user .mention {
+    position: absolute;
+    top: -.5vw;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'eveleth';
+    background-color: var(--orange);
+    padding: .5vw;
+    white-space: nowrap;
+    border-radius: .5vw;
+    font-size: .5vw;
+}
 .user img.pola {
     box-shadow: -.3vw .3vw .5vw rgba(0, 0, 0, 0.3);
 }
@@ -172,7 +204,15 @@ function randomSignFlip(num) {
     /* object-fit: contain; */
 }
 
-.wanted {
+.user.wanted {
     outline: .25vw dashed red;
+}
+
+.user.laureat-avent {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    z-index: 999;
 }
 </style>

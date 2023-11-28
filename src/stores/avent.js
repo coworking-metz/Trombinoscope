@@ -42,9 +42,12 @@ export const sAvent = defineStore("avent", {
             if (isCurrentTimeAfter(reglages?.avent.heure_tirage)) {
                 console.log('Tirage !')
                 const user = users.data[Math.floor(Math.random() * users.data.length)];
-                if (Object.values(this.tirages).includes(user.wpUserId)) {
-                    console.log('Deja lauréat !');
-                    return this.faireTirage();
+                if (this.ilResteDesPersonneNonLaureatesAjourdHui()) {
+                    console.log('ilResteDesPersonneNonLaureatesAjourdHui');
+                    if (Object.values(this.tirages).includes(user.wpUserId)) {
+                        console.log('Deja lauréat et il y a d\'autres personnes au cowo qui n\'ont pas encore gagné ! On recommence');
+                        return this.faireTirage();
+                    }
                 }
                 return api.post('trombi/avent/tirage', { date_tirage: dateDuJour(), user_id: user.wpUserId }).then(data => {
                     this.getTirageJour()
@@ -52,6 +55,14 @@ export const sAvent = defineStore("avent", {
 
             }
 
+        },
+        ilResteDesPersonneNonLaureatesAjourdHui() {
+            const users = sUsers();
+            for (const user of users.data) {
+                if (!this.tirages.includes(user.wpUserId)) {
+                    return true;
+                }
+            }
         },
         /**
          * Récupère le tirage du jour à partir de l'API.

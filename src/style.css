@@ -34,8 +34,18 @@ body {
 
 
 @font-face {
-  font-family: 'KidsHandwriting-Regular';
-  src: url('/fonts/KidsHandwriting-Regular.woff') format('woff'), url('/fonts/KidsHandwriting-Regular.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+  font-family: 'eveleth';
+  src: url('/fonts/evelethclean-webfont.woff') format('woff'), url('/fonts/evelethclean-webfont.woff2') format('woff2');
+}
+
+
+body.grise:before {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
 }
