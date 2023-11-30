@@ -135,7 +135,7 @@ function polaroid_url(hd = false) {
     if (hd) {
         name += '-hd';
     }
-    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?2';
+    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?3';
 
 }
 function randomTime() {
