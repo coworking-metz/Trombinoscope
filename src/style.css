@@ -49,3 +49,11 @@ body.grise:before {
   height: 100%;
   z-index: 998;
 }
+
+.mention-wanted {
+  display: none;
+}
+
+body:has(.user .wanted) .mention-wanted {
+  display: block;
+}

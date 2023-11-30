@@ -204,7 +204,7 @@ function randomSignFlip(num) {
     /* object-fit: contain; */
 }
 
-.user.wanted {
+.user .wanted {
     outline: .25vw dashed red;
 }
 

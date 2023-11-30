@@ -32,7 +32,8 @@ onMounted(() => {
     <!-- <NavBar />-->
     <Trombinoscope />
     <footer>
-      <div class="mentions"><b style="color:red">En rouge:</b> Solde négatif ou adhésion manquante</div>
+      <div class="mentions"><span class="mention-wanted"><b style="color:red">En rouge:</b> Solde négatif ou adhésion
+          manquante</span></div>
       <!-- Choisissez votre polaroïd sur le site du coworking, dans le menu "Mon compte". -->
       <div class="etoiles" v-if="reglages.rankingMode == 'etoiles'">
       </div>
