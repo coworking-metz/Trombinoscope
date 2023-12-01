@@ -3,7 +3,7 @@ import { useApi } from "@/mixins/api.js";
 import { dateDuJour, estDansPlageDeDates, isCurrentTimeAfter } from '@/mixins/utils';
 import { sReglages } from "@/stores/reglages";
 import { sUsers } from "@/stores/users";
-
+import { toRaw } from 'vue'
 const api = useApi();
 
 /**
@@ -28,7 +28,11 @@ export const sAvent = defineStore("avent", {
             console.log('Avent !')
             this.getTirages().then(() => {
                 this.getTirageJour().then(() => {
-                    if (this.tirage) return
+                    if (this.tirage) {
+                        console.log('Avent - Le tirage a déjà été fait ce jour !')
+                        return;
+                    }
+
                     this.faireTirage();
                 })
             })
@@ -40,7 +44,7 @@ export const sAvent = defineStore("avent", {
             const reglages = sReglages();
             const users = sUsers();
             if (isCurrentTimeAfter(reglages?.avent.heure_tirage)) {
-                console.log('Tirage !')
+                console.log('Avent - On fait le tirage');
                 const user = users.data[Math.floor(Math.random() * users.data.length)];
                 if (this.ilResteDesPersonneNonLaureatesAjourdHui()) {
                     console.log('ilResteDesPersonneNonLaureatesAjourdHui');
@@ -53,6 +57,8 @@ export const sAvent = defineStore("avent", {
                     this.getTirageJour()
                 })
 
+            } else {
+                console.log('Avent - Pas encore l\'heure du tirage')
             }
 
         },
