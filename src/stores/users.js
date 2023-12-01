@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useApi } from "@/mixins/api.js";
+import { array_shuffle } from "@/mixins/utils.js";
 
 const api = useApi();
 
@@ -25,7 +26,7 @@ export const sUsers = defineStore("users", {
                 delay: import.meta.env.VITE_APP_TICKET_DELAI || 15
             }
             api.get(`${import.meta.env.VITE_TICKETS_API_ROOT}current-users`, payload).then(users => {
-                this.data = users;
+                this.data = array_shuffle(users);
             });
 
         },

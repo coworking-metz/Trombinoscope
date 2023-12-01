@@ -13,6 +13,21 @@ export function calculateAge(birthDateString) {
   return (m === 0 && today.getDate() === birthDate.getDate()) ? age : null;
 }
 
+export function array_shuffle(originalArray) {
+  // Create a copy of the original array
+  let array = [...originalArray];
+
+  // Shuffle the copied array
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
+
+
 export function isCurrentTimeAfter(heure) {
   const now = new Date();
   const [hours, minutes] = heure.split(':').map(Number);
