@@ -9,7 +9,7 @@
             </template>
 
             <template v-if="laureatAvent">
-                <div class="mention">Gagnant du jour!</div>
+                <div class="mention">Gagnant(e) du jour!</div>
                 <img class="picto" :src="reglages?.avent.picto_avent">
             </template>
         </template>
