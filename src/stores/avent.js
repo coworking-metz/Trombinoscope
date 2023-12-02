@@ -65,7 +65,7 @@ export const sAvent = defineStore("avent", {
         ilResteDesPersonneNonLaureatesAjourdHui() {
             const users = sUsers();
             for (const user of users.data) {
-                if (!this.tirages.includes(user.wpUserId)) {
+                if (!Object.values(this.tirages).includes(user.wpUserId)) {
                     return true;
                 }
             }
