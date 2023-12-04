@@ -49,7 +49,7 @@ import Medaille from '@/components/Medaille.vue';
 import { computed, reactive, onMounted, ref, watch } from 'vue';
 import { sAvent } from "@/stores/avent";
 import { sReglages } from "@/stores/reglages";
-import { calculateAge } from '@/mixins/utils';
+import { calculateAge, dateDuJour } from '@/mixins/utils';
 
 const img = ref(null);
 
@@ -125,7 +125,7 @@ const polaroidHd = computed(() => {
     return polaroid_url(true);
 })
 const pdf_url = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId + '';
+    return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId;
 })
 function polaroid_url(hd = false) {
     let name = props.user.wpUserId;
@@ -135,7 +135,7 @@ function polaroid_url(hd = false) {
     if (hd) {
         name += '-hd';
     }
-    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?3';
+    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?' + dateDuJour();
 
 }
 function randomTime() {
