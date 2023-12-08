@@ -32,7 +32,7 @@ export function useApi() {
   async function get(uri, payload = null, options = {}) {
     options.method = "GET";
     if (payload)
-      uri += `?${objectToQueryString(payload)}`;
+      uri += (uri.includes('?') ? '&' : '?') + `${objectToQueryString(payload)}`;
     return await query(uri, null, options).then((response) => response.json());
   }
 
