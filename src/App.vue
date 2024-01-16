@@ -19,11 +19,11 @@ const ready = computed(() => {
   return true;
 })
 onMounted(() => {
-  reglages.load();
-  reglages.setRankingMode();
-  reglages.loadRanking();
-  users.load();
-
+  reglages.load(() => {
+    reglages.setRankingMode();
+    reglages.loadRanking();
+    users.load();
+  });
 })
 </script>
 

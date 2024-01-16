@@ -98,6 +98,7 @@ watch(laureatAvent, (newVal, oldVal) => {
 });
 
 const wanted = computed(() => {
+    if(props.user.visite) return false; 
     if (props.user.balance < 0) return true;
     if (!props.user.membershipOk) return true;
 });

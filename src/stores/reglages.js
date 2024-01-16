@@ -61,11 +61,12 @@ export const sReglages = defineStore("reglages", {
                     });
             });
         },
-        load() {
+        load(callback = false) {
 
             api.get('trombi')
                 .then(response => {
                     this.data = Object.assign({}, response);
+                    if (callback) callback();
                 })
 
         },
