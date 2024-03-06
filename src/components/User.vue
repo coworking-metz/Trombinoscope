@@ -18,9 +18,16 @@
         </template>
         <div class="actions buttons are-small">
             <div>
-                <a class="button " title="Fiche" target="_blank" :href="edit_url">
+                <a class="button " title="Fiche Wordpress" target="_blank" :href="edit_url">
                     <span class="icon is-small">
                         <i class="fas fa-user"></i>
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a class="button " title="Fiche manager" target="_blank" :href="manager_url">
+                    <span class="icon is-small">
+                        <i class="fas fa-cog"></i>
                     </span>
                 </a>
             </div>
@@ -118,6 +125,9 @@ const style = computed(() => {
 });
 const edit_url = computed(() => {
     return 'https://www.coworking-metz.fr/wp-admin/user-edit.php?user_id=' + props.user.wpUserId + '&wp_http_referer=%2Fwp-admin%2Fusers.php';
+});
+const manager_url = computed(() => {
+    return 'https://manager.coworking-metz.fr/members/' + props.user.wpUserId;
 });
 const polaroid = computed(() => {
     return polaroid_url();
