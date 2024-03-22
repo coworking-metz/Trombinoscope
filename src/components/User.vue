@@ -68,7 +68,9 @@ const data = reactive({
     ready: false,
     angle: null,
     vitesse: null,
-    userData: null
+    userData: null,
+    anonyme: document.location.hash.includes('anonyme')
+
 });
 
 onMounted(() => {
@@ -103,9 +105,9 @@ watch(laureatAvent, (newVal, oldVal) => {
         }, 5000);
     }
 });
-
 const wanted = computed(() => {
-    if(props.user.visite) return false; 
+    if(data.anonyme) return false;
+    if (props.user.visite) return false;
     if (props.user.balance < 0) return true;
     if (!props.user.membershipOk) return true;
 });
@@ -139,12 +141,16 @@ const pdf_url = computed(() => {
     return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId;
 })
 function polaroid_url(hd = false) {
+
     let name = props.user.wpUserId;
     if (anniversaire.value) {
         name += '-anniversaire';
     }
     if (hd) {
         name += '-hd';
+    }
+    if (data.anonyme) {
+        name = 'anonyme-' + name;
     }
     return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?' + dateDuJour();
 
@@ -203,6 +209,7 @@ function randomSignFlip(num) {
     border-radius: .5vw;
     font-size: .5vw;
 }
+
 .user img.pola {
     box-shadow: -.3vw .3vw .5vw rgba(0, 0, 0, 0.3);
 }
