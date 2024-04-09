@@ -34,7 +34,6 @@ export const sUsers = defineStore("users", {
                     users.push(visite);
                 })
                 this.data = array_shuffle(users);
-                console.log('users', users)
             });
 
         },

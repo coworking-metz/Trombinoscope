@@ -2,11 +2,11 @@
     <div class="user bgloader" :class="{ 'laureat-avent': afficherLaureat }" v-if="user" :style="style">
         <template v-if="data.ready">
 
-            <template v-if="data.userData">
+            <!-- <template v-if="data.userData">
                 <etoiles v-if="reglages.rankingMode == 'etoiles'" :ranking="data.userData.ranking" />
                 <medaille v-if="reglages.rankingMode == 'medaille'" :ranking="data.userData.ranking"
                     :userData="data.userData" />
-            </template>
+            </template> -->
 
             <template v-if="laureatAvent">
                 <div class="mention">Gagnant(e) du jour!</div>
@@ -142,17 +142,21 @@ const pdf_url = computed(() => {
 })
 function polaroid_url(hd = false) {
 
-    let name = props.user.wpUserId;
-    if (anniversaire.value) {
-        name += '-anniversaire';
-    }
+    let uid = props.user.wpUserId;
+    // if (anniversaire.value) {
+    //     uid += '-anniversaire';
+    // }
+    let size='medium';
     if (hd) {
-        name += '-hd';
+        size = 'big';
+        // uid += '-hd';
     }
     if (data.anonyme) {
-        name = 'anonyme-' + name;
+        uid = 'anonyme/' + uid;
     }
-    return 'https://coworking-metz.fr/polaroid/' + name + '.jpg?' + dateDuJour();
+
+    return 'https://photos.coworking-metz.fr/polaroid/size/'+size+'/'+uid+'.jpg'
+    // return 'https://coworking-metz.fr/polaroid/' + uid + '.jpg?' + dateDuJour();
 
 }
 function randomTime() {
