@@ -138,7 +138,8 @@ const polaroidHd = computed(() => {
     return polaroid_url(true);
 })
 const pdf_url = computed(() => {
-    return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId;
+    return 'https://photos.coworking-metz.fr/' + props.user.wpUserId + '.pdf';
+    // return 'https://coworking-metz.fr/polaroid/pdf.php?id=' + props.user.wpUserId;
 })
 function polaroid_url(hd = false) {
 
@@ -155,7 +156,7 @@ function polaroid_url(hd = false) {
         uid = 'anonyme/' + uid;
     }
 
-    return 'https://photos.coworking-metz.fr/polaroid/size/'+size+'/'+uid+'.jpg'
+    return 'https://photos.coworking-metz.fr/polaroid/size/'+size+'/'+uid+'.jpg?' + dateDuJour()
     // return 'https://coworking-metz.fr/polaroid/' + uid + '.jpg?' + dateDuJour();
 
 }
