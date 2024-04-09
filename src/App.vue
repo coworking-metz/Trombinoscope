@@ -13,6 +13,15 @@ import Silver from '@/components/medailles/Silver.vue';
 const reglages = sReglages();
 const users = sUsers();
 
+// retrieve interval from query params
+const reloadIntervalInMs = new URL(location.href).searchParams.get('reload-interval');
+
+if (reloadIntervalInMs) {
+  setInterval(() => {
+    window.location.reload();
+  }, reloadIntervalInMs);
+}
+
 const ready = computed(() => {
   if (!reglages.data) return;
   if (!users.data) return;
