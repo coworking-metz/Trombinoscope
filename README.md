@@ -9,7 +9,8 @@ Cette application web affiche un trombinoscope dynamique qui permet de visualise
 - **Liens vers des actions d'administration** : Accès rapide à la gestion des utilisateurs via des icônes pour la modification, la gestion et l'exportation de données utilisateur.
 
 ## Utilisation
-- Lancez l'application via votre navigateur en accédant à l'adresse du serveur où le code a été déployé.
+- Lancer `docker-compose up --build` pour lancer l'environnemen docker
+- Lancez l'application via votre navigateur en accédant à l'adresse du serveur http://localhost:7981 où le code a été déployé.
 - Utilisez les paramètres `admin`, `anonyme`, et `test` dans l'URL pour tester différentes configurations et fonctionnalités.
 
 

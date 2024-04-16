@@ -9,9 +9,18 @@ if(isset($_GET['debug'])) {
 // require 'vendor/autoload.php';
 
 
-define('URL_PHOTOS','https://photos.coworking-metz.fr/');
 define('URL_SITE',(empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]/");
 define('CHEMIN_SITE',realpath(__DIR__.'/..').'/');
+
+$envFile = CHEMIN_SITE.'.env';
+
+$env = parse_ini_file($envFile);
+if(!$env) die('.env file missing or invalid');
+
+define('REDIS_SERVER',$env['REDIS_SERVER']??'127.0.0.1');
+define('URL_PHOTOS',$env['URL_PHOTOS']??'https://photos.coworking-metz.fr/');
+
+
 define('UNE_MINUTE',60);
 define('CINQ_MINUTES',5*UNE_MINUTE);
 define('UNE_HEURE',60 * UNE_MINUTE);
