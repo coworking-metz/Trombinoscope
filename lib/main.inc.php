@@ -15,7 +15,6 @@ define('CHEMIN_SITE',realpath(__DIR__.'/..').'/');
 $envFile = CHEMIN_SITE.'.env';
 
 $env = parse_ini_file($envFile);
-if(!$env) die('.env file missing or invalid');
 
 define('REDIS_SERVER',$env['REDIS_SERVER']??'127.0.0.1');
 define('URL_PHOTOS',$env['URL_PHOTOS']??'https://photos.coworking-metz.fr/');
