@@ -63,9 +63,8 @@ function get_user_polaroids($uid, $options=[]) {
 }
 
 function get_users($delay=15, $options=[]) {
-    $data = get_content('https://tickets.coworking-metz.fr/api/current-users?key=bupNanriCit1&delay='.$delay, 15 * UNE_MINUTE);
+    $data = get_content('https://tickets.coworking-metz.fr/api/current-members?key=bupNanriCit1&delay='.$delay, 15 * UNE_MINUTE);
     $users = json_decode($data, true);
-
 
     foreach($users as &$user){
         $user['polaroids'] = get_user_polaroids($user['wpUserId'],['anonyme'=>$options['anonyme']??false, 'micro'=>$options['micro']??true]);
