@@ -13,8 +13,6 @@
             --nb-users: <?= $total; ?>;
             --nb-colonnes: <?= $colonnes; ?>;
             --nb-lignes: <?= $lignes; ?>;
-            /* --largeur-case: max(10vw, <?= 100 / $colonnes; ?>%);
-            --hauteur-case: max(10vh, <?= 100 / $lignes; ?>%); */
         }
     </style>
     <script type="text/javascript" defer async src="https://cloudflare.coworking-metz.fr/cf.js"></script>
