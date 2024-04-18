@@ -76,7 +76,7 @@ body {
     display: flex;
     gap: var(--small-gap);
     font-variant: small-caps;
-    font-family: 'eveleth-clean-regular';
+    font-family: 'police-grasse';
     font-size: 0.8vw;
     height: var(--hauteur-infos);
     align-items: center;
