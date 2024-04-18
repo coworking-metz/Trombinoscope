@@ -1,4 +1,5 @@
 :root {
+    --micro-gap: .8vh;
     --small-gap: 1.2vh;
     --gap: 2vh;
     --large-gap: 5vh;
@@ -11,16 +12,36 @@
     --hauteur-trombi-nogap: calc(var(--hauteur-trombi) - (var(--nb-gaps) * var(--gap)));
     --largeur-case: max(5vw, calc(var(--largeur-cadre-nogaps) / var(--nb-colonnes)));
     --hauteur-case: max(calc(5vw * 0.82), calc(var(--hauteur-trombi-nogap) / var(--nb-lignes)));
+
+    --taille-texte: clamp(.8em, 0.8vw, 5em);
+    --taille-icone: clamp(24px, 1.5vw, 32px);
     /* --largeur-case: clamp(10vw, var(--hauteur-cadre), 20vw);
     --hauteur-case: min(calc(var(--largeur-case) * 0.82), calc(var(--hauteur-cadre) / var(--nb-lignes))); */
 }
 
 html,
 body {
-    height: 100vh;
     margin: 0;
-    overflow: hidden;
     font-family: sans-serif;
+}
+
+@media (min-width: 800px) {
+
+    html,
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+body {
+    content: 'mobile';
+}
+
+@media (min-width: 800px) {
+    body {
+        content: 'desktop'
+    }
 }
 
 .fond {
@@ -47,7 +68,6 @@ body {
     display: flex;
     gap: var(--gap);
     flex-direction: column;
-    height: calc(100vh - (var(--gap) * 2));
     width: 100vw;
     align-items: center;
     justify-content: center;
@@ -61,23 +81,57 @@ body {
     --hauteur-user: calc(var(--hauteur-cadre-sans-gaps) / var(--nb-ligne)); */
 }
 
+@media (min-width: 800px) {
+    .wrapper {
+        height: calc(100vh - (var(--gap) * 2));
+    }
+}
+
 .wrapper>* {
     width: var(--largeur-cadre);
 }
 
+
 .trombi {
-    height: var(--hauteur-trombi);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+@media (min-width: 800px) {
+    .trombi {
+        height: var(--hauteur-trombi);
+    }
+}
+
 .infos {
+    display: flex;
+    gap: var(--gap);
+    flex-direction: column;
+}
+
+.infos>div:last-child {
+    display: flex;
+    justify-content: end;
+}
+
+@media (min-width: 800px) {
+    .infos {
+        flex-direction: row;
+    }
+
+    .infos>div:last-child {
+        flex: 1;
+    }
+}
+
+
+.infos>div {
     display: flex;
     gap: var(--small-gap);
     font-variant: small-caps;
     font-family: 'police-grasse';
-    font-size: 0.8vw;
+    font-size: var(--taille-texte);
     height: var(--hauteur-infos);
     align-items: center;
 }
@@ -95,36 +149,70 @@ body {
     color: transparent;
 }
 
-.infos>*:not(:first-child) {
+.infos>div>*:not(:first-child) {
     padding-left: var(--small-gap);
     border-left: 1px solid #333;
 }
 
-.users {
+.legende {
+    display: flex;
+    gap: var(--gap)
+}
 
-    /* width: var(--largeur-cadre); */
-    /* height: var(--hauteur-cadre); */
+.legende>div {
+    display: flex;
+    gap: var(--micro-gap);
+    align-items: center;
+}
+
+.legende svg {
+    width: var(--taille-icone);
+    aspect-ratio: 1;
+}
+
+.users {
+    width: 80%;
     display: flex;
     flex-direction: column;
     gap: var(--gap)
 }
-
 .users .line {
-    flex: 1;
     display: flex;
+    flex-direction: column;
     gap: var(--gap);
 }
 
 .user {
-    flex: 1;
-    width: var(--largeur-case);
-    height: var(--hauteur-case);
-    /* width: var(--largeur-case);
-    height: var(--hauteur-case); */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 0.82;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+@media (min-width: 800px) {
+
+    .users {
+        width: auto;
+        /* width: var(--largeur-cadre); */
+        /* height: var(--hauteur-cadre); */
+    }
+
+    .users .line {
+        flex: 1;
+        flex-direction: row;
+    }
+
+
+    .user {
+        aspect-ratio: initial;
+        flex: 1;
+        width: var(--largeur-case);
+        height: var(--hauteur-case);
+    }
+}
+
 
 .user:not(:hover) .actions {
     display: none;
@@ -192,25 +280,26 @@ figure nav {
     z-index: 3;
     display: flex;
     flex-direction: column;
-    margin: 3%;
+    margin: 1%;
 }
 
 figure nav span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
+    width: 20%;
     aspect-ratio: 1;
-    border-radius: 50%;
-    background-color: white;
+    /* border-radius: 50%; */
+    /* background-color: white; */
 }
 
 figure nav span svg {
     width: 70%;
     height: 70%;
 }
-figure nav span svg{
-    animation: blinkAnimation 2s linear infinite;
+
+figure nav span svg {
+    animation: blinkAnimation 1s linear infinite;
 }
 
 
@@ -260,7 +349,7 @@ figure .image {
 figure span.image.big {
     position: relative;
     display: block;
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     /* position: absolute;
     top: 50%;

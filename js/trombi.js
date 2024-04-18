@@ -13,6 +13,7 @@
         //     })
         // });
         if (document.body.dataset.admin == 'true') return;
+        if(isMobile()) return;
         document.querySelectorAll('.users figure').forEach(user => {
             const vitesse = randomTime() / 10;
             setTimeout(() => {
@@ -27,7 +28,11 @@
 
         })
     })
-
+    function isMobile() {
+        const style = window.getComputedStyle(document.body);
+        const contentValue = style.getPropertyValue('content');
+        return contentValue.includes('mobile');        
+    }
     function randomTime() {
         return Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000;
     }
