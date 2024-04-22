@@ -49,5 +49,5 @@ function cloudflareHit($urls=false) {
     header_remove('Expires');
     header_remove('Cache-Control');
     // Add cache-headers so that Cloudflare can cache the response.
-    header('Cache-Control: public, max-age=60, s-maxage=' . $max_age . '');
+    header('Cache-Control: public, max-age=' . $max_age . ', s-maxage=' . $max_age . '');
 }
