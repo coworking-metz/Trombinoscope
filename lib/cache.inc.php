@@ -37,17 +37,12 @@ function cloudflareHit($urls=false) {
     header('Expires: 0');
 }
 
- function cacheHeaders($max_age = null)
+ function cacheHeaders()
 {
-    // if (isset($_GET['nocache'])) return;
-    if (is_null($max_age)) {
-        // $max_age = 3600;
-        $max_age = 3600 * 24;
-    }
+    $max_age = 3600 * 24;
 
     header_remove('Pragma');
     header_remove('Expires');
     header_remove('Cache-Control');
-    // Add cache-headers so that Cloudflare can cache the response.
-    header('Cache-Control: public, max-age=' . $max_age . ', s-maxage=' . $max_age . '');
+    header('Cache-Control: public, no-store, s-maxage=' . $max_age . '');
 }
