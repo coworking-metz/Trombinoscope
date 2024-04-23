@@ -18,6 +18,7 @@ $env = parse_ini_file($envFile);
 
 define('REDIS_SERVER',$env['REDIS_SERVER']??'127.0.0.1');
 define('URL_PHOTOS',$env['URL_PHOTOS']??'https://photos.coworking-metz.fr/');
+define('TICKET_TOKEN',$env['TICKET_TOKEN']??'');
 
 
 define('UNE_MINUTE',60);
