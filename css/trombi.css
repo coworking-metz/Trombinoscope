@@ -366,6 +366,6 @@ figure span.image.big {
 }
 
 figure .micro {
-    /* transform: scale(1.01); */
-    /* filter: blur(5px); */
+    transform: scale(1.01);
+    filter: blur(5px);
 }
