@@ -4,7 +4,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         updateTimeInFrance();
         window.addEventListener('load', () => {
-            document.querySelectorAll('.user.loading').forEach(user => user.classList.remove('loading'));
+            document.querySelectorAll('.user .image.big').forEach(user => user.classList.add('ready'));
+            setTimeout(() => {
+
+                document.querySelectorAll('.user.loading').forEach(user => setTimeout(() => user.classList.remove('loading'), randomTime()));
+            }, 1000);
         })
 
         // document.querySelectorAll('.image.big').forEach(image => {
@@ -13,7 +17,7 @@
         //     })
         // });
         if (document.body.dataset.admin == 'true') return;
-        if(isMobile()) return;
+        if (isMobile()) return;
         document.querySelectorAll('.users figure').forEach(user => {
             const vitesse = randomTime() / 10;
             setTimeout(() => {
@@ -31,7 +35,7 @@
     function isMobile() {
         const style = window.getComputedStyle(document.body);
         const contentValue = style.getPropertyValue('content');
-        return contentValue.includes('mobile');        
+        return contentValue.includes('mobile');
     }
     function randomTime() {
         return Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000;

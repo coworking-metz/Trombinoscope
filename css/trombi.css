@@ -1,4 +1,5 @@
 :root {
+    --pola-ratio:0.82;
     --micro-gap: .8vh;
     --small-gap: 1.2vh;
     --gap: 2vh;
@@ -11,12 +12,12 @@
     --nb-gaps: calc(var(--nb-lignes) - 1);
     --hauteur-trombi-nogap: calc(var(--hauteur-trombi) - (var(--nb-gaps) * var(--gap)));
     --largeur-case: max(5vw, calc(var(--largeur-cadre-nogaps) / var(--nb-colonnes)));
-    --hauteur-case: max(calc(5vw * 0.82), calc(var(--hauteur-trombi-nogap) / var(--nb-lignes)));
+    --hauteur-case: max(calc(5vw * var(--pola-ratio)), calc(var(--hauteur-trombi-nogap) / var(--nb-lignes)));
 
     --taille-texte: clamp(.8em, 0.8vw, 5em);
     --taille-icone: clamp(24px, 1.5vw, 32px);
     /* --largeur-case: clamp(10vw, var(--hauteur-cadre), 20vw);
-    --hauteur-case: min(calc(var(--largeur-case) * 0.82), calc(var(--hauteur-cadre) / var(--nb-lignes))); */
+    --hauteur-case: min(calc(var(--largeur-case) * var(--pola-ratio)), calc(var(--hauteur-cadre) / var(--nb-lignes))); */
 }
 
 html,
@@ -165,9 +166,10 @@ body {
     align-items: center;
 }
 
-.legende svg {
+.legende svg, .legende img {
     width: var(--taille-icone);
     aspect-ratio: 1;
+    object-fit: contain;
 }
 
 .users {
@@ -185,7 +187,7 @@ body {
 .user {
     width: 100%;
     height: auto;
-    aspect-ratio: 0.82;
+    aspect-ratio: var(--pola-ratio);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,13 +295,12 @@ figure nav span {
     /* background-color: white; */
 }
 
-figure nav span svg {
-    width: 70%;
-    height: 70%;
-}
-
-figure nav span svg {
-    animation: blinkAnimation 1s linear infinite;
+figure nav span svg, figure nav span img {
+    transform: translate(-15%, -25%);
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    animation: blinkAnimation 5s linear infinite;
 }
 
 
@@ -307,13 +308,10 @@ figure nav span svg {
 
 
 @keyframes blinkAnimation {
-
-    0%,
-    100% {
+    0%, 20%, 40%, 50%, 90%, 100% {
         opacity: 0;
     }
-
-    50% {
+    10%, 30%, 60% {
         opacity: 1;
     }
 }
@@ -324,13 +322,14 @@ figure .image[src=""] {
 
 figure .image {
     opacity: 1;
-    aspect-ratio: 0.82;
+    aspect-ratio: var(--pola-ratio);
     /* height: 100%; */
     position: absolute;
-    /* transition: opacity .5s ease; */
     /* object-fit: contain; */
 }
-
+figure .image.ready {
+    transition: opacity 1s ease;
+}
 @media (orientation: landscape) {
     figure .image {
         width: auto;
@@ -357,15 +356,22 @@ figure span.image.big {
     transform: translate(-50%, -50%); */
 }
 
+
 .user.loading figure .image.big {
     opacity: 0;
 }
 
 .user:not(.loading) figure .image.micro {
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 figure .micro {
+    overflow: hidden;
+}
+
+figure .micro img{
+    width: 100%;
+    height: 100%;
     transform: scale(1.01);
-    filter: blur(5px);
+    filter: blur(8px);
 }

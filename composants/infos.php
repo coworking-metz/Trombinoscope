@@ -10,10 +10,10 @@
     <div>
         <div class="legende">
             <div>
-                <?= Svg::get('ticket-rouge'); ?><span>Abo. ou tickets épuisés</span>
+                <img src="/images/ticket.png"><span>Abo. ou tickets épuisés</span>
             </div>
             <div>
-                <?= Svg::get('carte-rouge'); ?><span>Adhésion <?=date('Y');?> manquante</span>
+            <img src="/images/adhesion.png"><span>Adhésion <?=date('Y');?> manquante</span>
             </div>
         </div>
     </div>
