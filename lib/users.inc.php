@@ -62,14 +62,40 @@ function get_user_polaroids($uid, $options=[]) {
     return $ret;
 }
 
+function isVisiteur($user) {
+    if(empty($user['visite'])) return;
+
+    return true;
+}
+
 function get_users($delay=15, $options=[]) {
     $data = get_content('https://tickets.coworking-metz.fr/api/current-members?key='.TICKET_TOKEN.'&delay='.$delay, 15 * UNE_MINUTE);
     $users = json_decode($data, true);
-
+    $users = array_merge($users, getVisitesToday());
     foreach($users as &$user){
         $user['polaroids'] = get_user_polaroids($user['wpUserId'],['anonyme'=>$options['anonyme']??false, 'micro'=>$options['micro']??true]);
     }
 
     shuffle($users);
     return $users;
+}
+
+function getVisitesToday() {
+    $url = "https://www.coworking-metz.fr/api-json-wp/cowo/v1/visites";
+    $auth = base64_encode(WP_APIV2_USERNAME . ':' . WP_APIV2_PASSWORD);
+    
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'GET',
+            'header' => "Authorization: Basic $auth\r\n"
+        ]
+    ]);
+
+    $response = file_get_contents($url, false, $context);
+    $ret = json_decode($response, true);
+
+
+    return array_filter($ret, function ($user) {
+        return $user['visite'] == date('Y-m-d');
+    });
 }

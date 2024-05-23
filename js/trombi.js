@@ -1,15 +1,15 @@
 (() => {
-    document.querySelectorAll('.user').forEach(user => user.classList.add('loading'));
+    // document.querySelectorAll('.user').forEach(user => user.classList.add('loading'));
 
     document.addEventListener('DOMContentLoaded', () => {
         updateTimeInFrance();
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.user .image.big').forEach(user => user.classList.add('ready'));
-            setTimeout(() => {
+        // window.addEventListener('load', () => {
+        //     document.querySelectorAll('.user .image.big').forEach(user => user.classList.add('ready'));
+        //     setTimeout(() => {
 
-                document.querySelectorAll('.user.loading').forEach(user => setTimeout(() => user.classList.remove('loading'), randomTime()));
-            }, 1000);
-        })
+        //         document.querySelectorAll('.user.loading').forEach(user => setTimeout(() => user.classList.remove('loading'), randomTime()));
+        //     }, 1000);
+        // })
 
         // document.querySelectorAll('.image.big').forEach(image => {
         //     image.addEventListener('load', function () {
