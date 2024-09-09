@@ -1,7 +1,7 @@
 <?php
 
 function get_reglages() {
-    $data = get_content('https://wpapi.coworking-metz.fr/api-json-wp/cowo/v1/trombi', UNE_HEURE);
+    $data = file_get_contents('https://wpapi.coworking-metz.fr/api-json-wp/cowo/v1/trombi');
 
     $reglages = json_decode($data, true);
 

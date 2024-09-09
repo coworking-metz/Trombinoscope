@@ -13,6 +13,7 @@
             --nb-users: <?= $total; ?>;
             --nb-colonnes: <?= $colonnes; ?>;
             --nb-lignes: <?= $lignes; ?>;
+            --couleur-du-texte: <?= get_reglage('couleur_du_texte'); ?>;
         }
     </style>
     <script type="text/javascript" defer async src="https://cloudflare.coworking-metz.fr/cf.js"></script>
