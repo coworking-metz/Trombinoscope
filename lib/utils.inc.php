@@ -53,6 +53,7 @@
     if($total <= 40) {
         return ['colonnes'=>8, 'lignes'=>5];
     }
+    return ['colonnes'=>9, 'lignes'=>6];
 
 }
 

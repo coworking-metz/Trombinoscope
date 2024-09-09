@@ -1,6 +1,6 @@
 <div class="infos">
     <div>
-        <span><?= pluriel($total, 'personne présente'); ?></span>
+        <span><?= pluriel($total, 'poste occupé'); ?> sur <?=NB_PLACES_TOTAL;?></span>
         <date><?= obtenirDateActuelle(); ?></date>
         <time class="loading"><?= date('H:i:s'); ?></time>
         <?php if ($admin) { ?>
@@ -10,7 +10,7 @@
     <div>
         <div class="legende">
             <div>
-                <img src="/images/ticket.png"><span>Abo. ou tickets épuisés</span>
+                <img src="/images/ticket-red.png"><span>Abo. ou tickets épuisés</span>
             </div>
             <div>
             <img src="/images/adhesion.png"><span>Adhésion <?=date('Y');?> manquante</span>
