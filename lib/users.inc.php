@@ -1,89 +1,102 @@
 <?php
 
-function big($cpt, $total) {
-    if($cpt == 0) return 'big';
+function big($cpt, $total)
+{
+    if ($cpt == 0) return 'big';
     // if($cpt == $total-10) return 'big';
 
     // if(ceil($total/4) == $cpt) return 'big';
     // if($cpt%15 == 0) return 'big';
 }
-function steps($users) {
+function steps($users)
+{
     $nb = count($users);
 
-    if($nb>27) {
+    if ($nb > 27) {
         return 9;
     }
-    if($nb>20) {
+    if ($nb > 20) {
         return 8;
     }
-    if($nb>10) {
+    if ($nb > 10) {
         return 7;
     }
-    if($nb>5) {
+    if ($nb > 5) {
         return 4;
     }
     return 4;
 }
 
-function effectif($users) {
+function effectif($users)
+{
     $nb = count($users);
 
-    if($nb<5) {
+    if ($nb < 5) {
         return 'empty';
     }
-    if($nb<10) {
+    if ($nb < 10) {
         return 'low';
     }
-    if($nb<15) {
+    if ($nb < 15) {
         return 'average';
     }
-    if($nb<20) {
+    if ($nb < 20) {
         return 'high';
     }
-    if($nb<25) {
+    if ($nb < 25) {
         return 'full';
     }
     return 'crazy';
 }
-function get_user_polaroids($uid, $options=[]) {
-    $micro = $options['micro']??true;
-    $anonyme = $options['anonyme']??false;
-    if($anonyme) {
+function get_user_polaroids($uid, $options = [])
+{
+    $micro = $options['micro'] ?? true;
+    $anonyme = $options['anonyme'] ?? false;
+    if ($anonyme) {
         $anonyme = 'anonyme/';
     }
     $ret = [
-        'big'=> URL_PHOTOS.'polaroid/size/big/'.$anonyme.$uid.'.jpg',
+        'big' => URL_PHOTOS . 'polaroid/size/big/' . $anonyme . $uid . '.jpg',
     ];
 
-    if($micro) {
-        $ret['micro'] = get_image_content(URL_PHOTOS.'polaroid/size/micro/'.$anonyme.$uid.'.jpg',UN_JOUR);
-
+    if ($micro) {
+        $ret['micro'] = get_image_content(URL_PHOTOS . 'polaroid/size/micro/' . $anonyme . $uid . '.jpg', UN_JOUR);
     }
     return $ret;
 }
 
-function isVisiteur($user) {
-    if(empty($user['visite'])) return;
+function isVisiteur($user)
+{
+    if (empty($user['visite'])) return;
 
     return true;
 }
+function is_birthday($user)
+{
+    $birthDate = $user['birthDate'] ?? false;
 
-function get_users($delay=15, $options=[]) {
-    $data = get_content('https://tickets.coworking-metz.fr/api/current-members?key='.TICKET_TOKEN.'&delay='.$delay, 15 * UNE_MINUTE);
+    if (!$birthDate) return;
+
+    return strstr($birthDate, date('m-d')) ? true : false;
+}
+function get_users($delay = 15, $options = [])
+{
+    $data = get_content('https://tickets.coworking-metz.fr/api/current-members?key=' . TICKET_TOKEN . '&delay=' . $delay, 15 * UNE_MINUTE);
     $users = json_decode($data, true);
     $users = array_merge($users, getVisitesToday());
-    foreach($users as &$user){
-        $user['polaroids'] = get_user_polaroids($user['wpUserId'],['anonyme'=>$options['anonyme']??false, 'micro'=>$options['micro']??true]);
+    foreach ($users as &$user) {
+        $user['polaroids'] = get_user_polaroids($user['wpUserId'], ['anonyme' => $options['anonyme'] ?? false, 'micro' => $options['micro'] ?? true]);
     }
 
     shuffle($users);
     return $users;
 }
 
-function getVisitesToday() {
+function getVisitesToday()
+{
     $url = "https://www.coworking-metz.fr/api-json-wp/cowo/v1/visites";
     $auth = base64_encode(WP_APIV2_USERNAME . ':' . WP_APIV2_PASSWORD);
-    
+
     $context = stream_context_create([
         'http' => [
             'method' => 'GET',
