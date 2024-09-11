@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +7,22 @@
     <title>Trombinoscope</title>
     <meta name="robots" content="noindex">
     <!-- <meta http-equiv="refresh" content="60">  -->
+     <?php $avent = get_reglage('avent');?>
     <style>
         :root {
             --nb-users: <?= $total; ?>;
             --nb-colonnes: <?= $colonnes; ?>;
             --nb-lignes: <?= $lignes; ?>;
             --couleur-du-texte: <?= get_reglage('couleur_du_texte'); ?>;
+            --picto-avent:url('<?=$avent['picto_avent']??false;?>')
         }
     </style>
+    <script>
+        const avent = <?= json_encode($avent); ?>
+    </script>
+    <script>
+        const WP_API_URL = <?= json_encode(WP_API_URL) ?>
+    </script>
     <script type="text/javascript" defer async src="https://cloudflare.coworking-metz.fr/cf.js"></script>
     <link rel="stylesheet" href="<?= $cssFile . $version; ?>">
     <link rel="stylesheet" href="https://pages.coworking-metz.fr/fonts/fonts.css<?= $version; ?>">
@@ -26,4 +33,5 @@
         <link rel="preload" href="<?= $user['polaroids']['big']; ?>" as="image">
     <?php } ?>
 </head>
+
 <body data-effectif="<?= effectif($users); ?>" data-admin="<?= $admin ? 'true' : 'false'; ?>">

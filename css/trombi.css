@@ -393,18 +393,69 @@ figure .micro img {
 }
 
 
-[data-anniversaire="true"] .image.big{
+[data-anniversaire="true"] .image.big {
     position: relative;
 }
 
 [data-anniversaire="true"] .image.big:after {
     content: '';
     position: absolute;
-    top:1%;
+    top: 1%;
     left: 0;
     width: 100%;
     height: 100%;
     background: url(/images/cadre-anniv.png) no-repeat center;
     background-size: contain;
     transform: scale(1.1);
+}
+
+.user[data-gagnant="true"] .image.big {
+    position: relative;
+}
+
+.user[data-gagnant="true"] .image.big:before {
+    content: '';
+    position: absolute;
+    width: 30%;
+    aspect-ratio: 1;
+    top: 0;
+    left: 0;
+    background: var(--picto-avent) no-repeat center;
+    background-size: contain;
+    transform: rotate(-20deg);
+}
+
+.user.bravo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    gap:1em;
+}
+
+.user.bravo:before {
+    content: 'Gagnant(e) du jour:';
+    display: block;
+    font-family: 'police-grasse';
+}
+
+.user.bravo.display {
+    opacity: 1;
+}
+
+.user.bravo.end {
+    opacity: 0;
+}
+
+.user.bravo figure {
+    width: 50%;
+    height: 50%;
 }

@@ -94,7 +94,7 @@ function get_users($delay = 15, $options = [])
 
 function getVisitesToday()
 {
-    $url = "https://www.coworking-metz.fr/api-json-wp/cowo/v1/visites";
+    $url = "https://wpapi.coworking-metz.fr/api-json-wp/cowo/v1/visites/today";
     $auth = base64_encode(WP_APIV2_USERNAME . ':' . WP_APIV2_PASSWORD);
 
     $context = stream_context_create([
@@ -106,9 +106,10 @@ function getVisitesToday()
 
     $response = file_get_contents($url, false, $context);
     $ret = json_decode($response, true);
-
-
-    return array_filter($ret, function ($user) {
+    return array_map(function($user) {
+        $user['visiteur']=true;
+        return $user;
+    },array_filter($ret, function ($user) {
         return $user['visite'] == date('Y-m-d');
-    });
+    }));
 }
