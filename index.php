@@ -16,6 +16,7 @@ if ($test) {
 
     $users = array_slice($users, 0, $test);
 }
+
 $total = count($users);
 $grid = calculateGridDimensions($total);
 
@@ -25,7 +26,7 @@ $lignes = $grid['lignes'];
 $cssFile = '/css/trombi.css';
 $cssPath = CHEMIN_SITE . $cssFile;
 
-$jsFile = '/js/trombi.js';
+$jsFile = '/trombi.js';
 $jsPath = CHEMIN_SITE . $jsFile;
 if ($admin) {
 
