@@ -14,7 +14,7 @@
     --largeur-case: max(5vw, calc(var(--largeur-cadre-nogaps) / var(--nb-colonnes)));
     --hauteur-case: max(calc(5vw * var(--pola-ratio)), calc(var(--hauteur-trombi-nogap) / var(--nb-lignes)));
 
-    --taille-texte: clamp(.8em, 0.8vw, 5em);
+    --taille-texte: clamp(.6em, 0.8vw, 5em);
     --taille-icone: clamp(24px, 1.5vw, 32px);
     /* --largeur-case: clamp(10vw, var(--hauteur-cadre), 20vw);
     --hauteur-case: min(calc(var(--largeur-case) * var(--pola-ratio)), calc(var(--hauteur-cadre) / var(--nb-lignes))); */
@@ -153,7 +153,7 @@ body {
 
 .infos>div>*:not(:first-child) {
     padding-left: var(--small-gap);
-    border-left: 1px solid #333;
+    border-left: 1px solid var(--couleur-du-texte);
 }
 
 .legende {
