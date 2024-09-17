@@ -461,9 +461,7 @@ figure .micro img {
 }
 
 
-.user[data-location] .image {
-    position: relative;
-}
+
 
 .user[data-location] .image:before {
     content: '';
