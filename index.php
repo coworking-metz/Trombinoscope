@@ -18,6 +18,7 @@ if ($test) {
 }
 
 $total = count($users);
+$locations = array_count_values(array_column($users,'location'));
 $grid = calculateGridDimensions($total);
 
 $colonnes = $grid['colonnes'];

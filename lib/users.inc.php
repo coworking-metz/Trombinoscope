@@ -112,10 +112,33 @@ function getVisitesToday()
 
     $response = file_get_contents($url, false, $context);
     $ret = json_decode($response, true);
-    return array_map(function($user) {
-        $user['visiteur']=true;
+    return array_map(function ($user) {
+        $user['visiteur'] = true;
         return $user;
-    },array_filter($ret, function ($user) {
+    }, array_filter($ret, function ($user) {
         return $user['visite'] == date('Y-m-d');
     }));
+}
+
+
+function locationPresences($locations)
+{
+    $total = array_sum($locations);
+    echo  '<span>'.pluriel($total, 'personnes présente').'</span>';
+    if(count($locations)<1) return;
+
+    $txt = [];
+    foreach($locations as $slug => $nb) {
+        $txt[]= $nb.' dans '.locationName($slug);
+    }
+
+    echo '<span>'.implode(', ',$txt).'</span>';
+}
+
+function locationName($slug) {
+    if($slug == 'pti-poulailler') {
+        return 'le P\'ti Poulailler';
+    } else {
+        return 'le Poulailler';
+    }
 }

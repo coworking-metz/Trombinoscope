@@ -1,6 +1,6 @@
 <div class="infos">
     <div>
-        <span><?= pluriel($total, 'poste occupé'); ?> sur <?=NB_PLACES_TOTAL;?></span>
+        <?= locationPresences($locations); ?>
         <date><?= obtenirDateActuelle(); ?></date>
         <time class="loading"><?= date('H:i:s'); ?></time>
         <?php if ($admin) { ?>
