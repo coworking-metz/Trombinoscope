@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trombinoscope</title>
     <meta name="robots" content="noindex">
+    <?php if(!$admin) {?>
     <meta http-equiv="refresh" content="60"> 
-     <?php $avent = get_reglage('avent');?>
+    <?php }?>
+        <?php $avent = get_reglage('avent');?>
     <style>
         :root {
             --nb-users: <?= $total; ?>;

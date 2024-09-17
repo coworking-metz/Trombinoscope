@@ -438,7 +438,7 @@ figure .micro img {
     flex-direction: column;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    gap:1em;
+    gap: 1em;
 }
 
 .user.bravo:before {
@@ -458,4 +458,24 @@ figure .micro img {
 .user.bravo figure {
     width: 50%;
     height: 50%;
+}
+
+
+.user[data-location] .image {
+    position: relative;
+}
+
+.user[data-location] .image:before {
+    content: '';
+    background: url(/images/poulailler.png) no-repeat center;
+    background-size: contain;
+    position: absolute;
+    width: 25%;
+    aspect-ratio: 1;
+    bottom: 13%;
+    left: 4%;
+    z-index: 10;
+}
+.user[data-location="pti-poulailler"] .image:before {
+    background-image: url(/images/pti-poulailler.png);
 }

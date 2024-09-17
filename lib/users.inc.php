@@ -55,6 +55,12 @@ function get_user_polaroids($uid, $options = [])
     if ($anonyme) {
         $anonyme = 'anonyme/';
     }
+
+    // $api = URL_PHOTOS . '' . $uid . '.json';
+    // $content = file_get_contents($api);
+
+    // $data = json_decode($content, true);
+
     $ret = [
         'big' => URL_PHOTOS . 'polaroid/size/big/' . $anonyme . $uid . '.jpg',
     ];

@@ -115,6 +115,8 @@ function purge_temp_files() {
     }
 }
 function get_content($url, $expire=null) {
+    return file_get_contents($url);
+    /*
     $hash = sha1($url);
 
     $content = redis_get('local-'.$hash);
@@ -122,7 +124,7 @@ function get_content($url, $expire=null) {
         $content = file_get_contents($url);
         redis_set('local-'.$hash, $content, $expire);
     }
-    return $content;
+    return $content;*/
 }
 function get_image_content($url, $expire = null) {
     $hash = sha1($url);
