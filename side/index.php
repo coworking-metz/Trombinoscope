@@ -1,5 +1,5 @@
 <?php
-include 'lib/main.inc.php';
+include '../lib/main.inc.php';
 $delay = $_GET['delay'] ?? 15;
 $test = $_GET['test'] ?? false;
 $admin = isset($_GET['admin']);
@@ -35,6 +35,7 @@ if ($admin) {
 } else {
     cacheHeaders(CINQ_MINUTES);
 }
+$version = '?' . filemtime($cssPath);
 ?>
 <?php include CHEMIN_SITE . 'composants/head.php'; ?>
 

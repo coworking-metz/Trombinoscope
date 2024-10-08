@@ -4,6 +4,7 @@
     --small-gap: 1.2vh;
     --gap: 2vh;
     --large-gap: 5vh;
+    --largeur-users: 80%;
     --largeur-cadre: calc(100vw - var(--large-gap));
     --largeur-cadre-nogaps: calc(var(--largeur-cadre) - ((var(--nb-colonnes) - 1) * var(--gap)));
     --hauteur-cadre: calc(100vh - var(--large-gap));
@@ -47,6 +48,7 @@ body {
 }
 
 .fond {
+    background-color: var(--couleur-du-fond);
     position: fixed;
     z-index: -1;
     top: 0;
@@ -113,8 +115,12 @@ body {
 }
 
 .infos>div:last-child {
-    display: flex;
-    justify-content: end;
+    display: none;
+
+    @media (min-width: 800px) {
+        display: flex;
+        justify-content: end;
+    }
 }
 
 @media (min-width: 800px) {
@@ -126,7 +132,6 @@ body {
         flex: 1;
     }
 }
-
 
 .infos>div {
     display: flex;
@@ -175,7 +180,7 @@ body {
 }
 
 .users {
-    width: 80%;
+    width: var(--largeur-users);
     display: flex;
     flex-direction: column;
     gap: var(--gap)
@@ -474,6 +479,48 @@ figure .micro img {
     left: 4%;
     z-index: 10;
 }
+
 .user[data-location="pti-poulailler"] .image:before {
     background-image: url(/images/pti-poulailler.png);
+}
+
+
+@media (min-width: 800px) {
+    .user.autres {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .user.autres {
+        background-color: var(--couleur-du-texte);
+        color: var(--couleur-du-fond);
+        text-transform: uppercase;
+        padding: var(--gap);
+        box-sizing: border-box;
+        text-align: center;
+        font-family: 'police-grasse';
+    }
+    :root {
+        --largeur-users: 40%;
+        --largeur-cadre: 100%;
+    }
+
+    .infos>div {
+        justify-content: center;
+    }
+
+    .infos>div>span:not(:first-child) {
+        display: none;
+    }
+
+    .infos date {
+        display: none;
+    }
+
+    .users .line:not(:first-child),
+    .line .user:nth-child(n + 5):not(.autres) {
+        display: none !important;
+    }
+
 }

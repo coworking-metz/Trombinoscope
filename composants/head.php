@@ -1,3 +1,6 @@
+<?php
+$version = '?' . filemtime($cssPath);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +18,7 @@
             --nb-users: <?= $total; ?>;
             --nb-colonnes: <?= $colonnes; ?>;
             --nb-lignes: <?= $lignes; ?>;
+            --couleur-du-fond:<?= get_reglage('fond/couleur'); ?>;
             --couleur-du-texte: <?= get_reglage('couleur_du_texte'); ?>;
             --picto-avent:url('<?=$avent['picto_avent']??false;?>')
         }
