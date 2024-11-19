@@ -468,7 +468,7 @@ figure .micro img {
 
 
 
-.user[data-location] .image:before {
+.user[data-location]:not([data-location=""]) .image:before {
     content: '';
     background: url(/images/poulailler.png) no-repeat center;
     background-size: contain;
@@ -481,7 +481,14 @@ figure .micro img {
 }
 
 .user[data-location="pti-poulailler"] .image:before {
-    background-image: url(/images/pti-poulailler.png);
+    background-image: url(/images/pti-poulailler.png) !important;
+}
+
+.user[data-location="cantina"] .image:before {
+    background-image: url(/images/cantina.png) !important;
+}
+.user[data-location="racine"] .image:before {
+    background-image: url(/images/racine.png) !important;
 }
 
 
@@ -501,6 +508,7 @@ figure .micro img {
         text-align: center;
         font-family: 'police-grasse';
     }
+
     :root {
         --largeur-users: 40%;
         --largeur-cadre: 100%;
