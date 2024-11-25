@@ -30,7 +30,6 @@ $cssPath = CHEMIN_SITE . $cssFile;
 $jsFile = '/trombi.js';
 $jsPath = CHEMIN_SITE . $jsFile;
 if ($admin) {
-
     noCacheHeaders();
 } else {
     cacheHeaders(CINQ_MINUTES);
