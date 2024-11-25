@@ -1,10 +1,12 @@
 <?php
 
 function get_reglages() {
-    $data = file_get_contents('https://wpapi.coworking-metz.fr/api-json-wp/cowo/v1/trombi');
+    if(isset($GLOBALS['get_reglages'])) return $GLOBALS['get_reglages'];
+    $data = file_get_contents('https://www.coworking-metz.fr/api-json-wp/cowo/v1/trombi');
 
     $reglages = json_decode($data, true);
 
+    $GLOBALS['get_reglages'] = $reglages;
     return $reglages;
 }
 

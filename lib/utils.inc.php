@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calculate the optimal number of rows and columns for a grid with an aspect ratio of 4/3.
  *
@@ -13,52 +14,53 @@
 //     return ['colonnes' => $colonnes, 'lignes' => $lignes];
 // }
 
- function calculateGridDimensions($total) {
+function calculateGridDimensions($total)
+{
 
-    if($total <= 4) {
-        return ['colonnes'=>4, 'lignes'=>2];
+    if ($total <= 4) {
+        return ['colonnes' => 4, 'lignes' => 2];
     }
 
-    if($total <= 8) {
-        return ['colonnes'=>4, 'lignes'=>2];
+    if ($total <= 8) {
+        return ['colonnes' => 4, 'lignes' => 2];
     }
 
-    if($total <= 15) {
-        return ['colonnes'=>5, 'lignes'=>3];
+    if ($total <= 15) {
+        return ['colonnes' => 5, 'lignes' => 3];
     }
 
-    if($total <= 18) {
-        return ['colonnes'=>6, 'lignes'=>3];
+    if ($total <= 18) {
+        return ['colonnes' => 6, 'lignes' => 3];
     }
 
-    if($total <= 20) {
-        return ['colonnes'=>5, 'lignes'=>4];
+    if ($total <= 20) {
+        return ['colonnes' => 5, 'lignes' => 4];
     }
-    if($total <= 24) {
-        return ['colonnes'=>6, 'lignes'=>4];
-    }
-
-    if($total <= 28) {
-        return ['colonnes'=>7, 'lignes'=>4];
+    if ($total <= 24) {
+        return ['colonnes' => 6, 'lignes' => 4];
     }
 
-    if($total <= 32) {
-        return ['colonnes'=>8, 'lignes'=>4];
+    if ($total <= 28) {
+        return ['colonnes' => 7, 'lignes' => 4];
     }
 
-    if($total <= 36) {
-        return ['colonnes'=>6, 'lignes'=>6];
+    if ($total <= 32) {
+        return ['colonnes' => 8, 'lignes' => 4];
     }
 
-    if($total <= 40) {
-        return ['colonnes'=>8, 'lignes'=>5];
+    if ($total <= 36) {
+        return ['colonnes' => 6, 'lignes' => 6];
     }
-    return ['colonnes'=>9, 'lignes'=>6];
 
+    if ($total <= 40) {
+        return ['colonnes' => 8, 'lignes' => 5];
+    }
+    return ['colonnes' => 9, 'lignes' => 6];
 }
 
 
-function obtenirDateActuelle() {
+function obtenirDateActuelle()
+{
     $date = new DateTime();
     $formatter = new IntlDateFormatter(
         'fr_FR',
@@ -80,74 +82,88 @@ function obtenirDateActuelle() {
  * @param  mixed $pluriel La marque du pluriel à appliquer au libellé (défaut: s)
  * @return void
  */
-function pluriel($qte, $lib, $pluriel = 's', $separateur=' ')
+function pluriel($qte, $lib, $pluriel = 's', $separateur = ' ')
 {
-	if ($qte > 1) {
-		$lib = explode($separateur, $lib);
-		foreach ($lib as $a => $b) {
-			$lib[$a] = $b . $pluriel;
-		}
-		return $qte . ' ' . implode($separateur, $lib);
-	} else {
-		return $qte . ' ' . $lib;
-	}
+    if ($qte > 1) {
+        $lib = explode($separateur, $lib);
+        foreach ($lib as $a => $b) {
+            $lib[$a] = $b . $pluriel;
+        }
+        return $qte . ' ' . implode($separateur, $lib);
+    } else {
+        return $qte . ' ' . $lib;
+    }
 }
 
-function url_to_file($url){
-    if(!$url) return;
+function url_to_file($url)
+{
+    if (!$url) return;
     $content = get_content($url);
-    if(!$content) return;
+    if (!$content) return;
 
     return to_temp_file($content);
 }
 
-$GLOBALS['to_temp_file']=[];
-function to_temp_file($data){
+$GLOBALS['to_temp_file'] = [];
+function to_temp_file($data)
+{
     $tmpfile = tempnam(sys_get_temp_dir(), 'tmp');
     file_put_contents($tmpfile, $data);
-    $GLOBALS['to_temp_file'][]=$tmpfile;
+    $GLOBALS['to_temp_file'][] = $tmpfile;
     return $tmpfile;
 }
 
-function purge_temp_files() {
-    foreach($GLOBALS['to_temp_file'] as $file) {
+function purge_temp_files()
+{
+    foreach ($GLOBALS['to_temp_file'] as $file) {
         unlink($file);
     }
 }
-function get_content($url, $expire=null) {
+function get_content($url, $expire = null)
+{
     return file_get_contents($url);
-    /*
-    $hash = sha1($url);
-
-    $content = redis_get('local-'.$hash);
-    if(!$content) {
-        $content = file_get_contents($url);
-        redis_set('local-'.$hash, $content, $expire);
-    }
-    return $content;*/
 }
-function get_image_content($url, $expire = null) {
+/**
+ * Récupère le contenu d'une image et le met en cache dans un fichier temporaire.
+ *
+ * @param string $url URL de l'image.
+ * @param int|null $expire Durée d'expiration du cache en secondes (null pour pas d'expiration).
+ * @return string Contenu de l'image encodé en base64 avec son type MIME.
+ */
+function get_image_content($url, $expire = null)
+{
     $hash = sha1($url);
-    $content = redis_get('local-image-' . $hash);
-    if (!$content) {
-        $content = file_get_contents($url);
-        $mimeType = get_mime_type_from_extension($url);
-        $base64 = base64_encode($content);
-        $content = "data:" . $mimeType . ";base64," . $base64;
+    $cacheFile = sys_get_temp_dir() . '/local-image-' . $hash;
 
-        redis_set('local-image-' . $hash, $content, $expire);
+    // Vérifie si le fichier de cache existe et n'est pas expiré
+    if (file_exists($cacheFile)) {
+        if ($expire === null || (time() - filemtime($cacheFile)) < $expire) {
+            return file_get_contents($cacheFile);
+        }
     }
+
+    // Télécharge l'image et encode son contenu
+    $content = file_get_contents($url);
+    $mimeType = get_mime_type_from_extension($url);
+    $base64 = base64_encode($content);
+    $content = "data:" . $mimeType . ";base64," . $base64;
+
+    // Sauvegarde le contenu dans le fichier de cache
+    file_put_contents($cacheFile, $content);
+
     return $content;
 }
 
 
-function erreur($code) {
+function erreur($code)
+{
     noCacheHeaders();
     http_response_code($code);
     die;
 }
 
-function get_mime_type_from_extension($url) {
+function get_mime_type_from_extension($url)
+{
     $extension = strtolower(pathinfo($url, PATHINFO_EXTENSION));
     $mime_types = [
         'jpg' => 'image/jpeg',

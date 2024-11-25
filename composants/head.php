@@ -29,8 +29,10 @@ $version = '?' . filemtime($cssPath);
     <script>
         const WP_API_URL = <?= json_encode(WP_API_URL) ?>
     </script>
-    <script type="text/javascript" defer async src="https://cloudflare.coworking-metz.fr/cf.js"></script>
-    <link rel="stylesheet" href="<?= $cssFile . $version; ?>">
+	<?php if($admin) {?>
+	    <script type="text/javascript" defer async src="https://cloudflare.coworking-metz.fr/cf.js"></script>
+    <?php }?>
+	<link rel="stylesheet" href="<?= $cssFile . $version; ?>">
     <link rel="stylesheet" href="https://pages.coworking-metz.fr/fonts/fonts.css<?= $version; ?>">
     <?php if ($admin) { ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

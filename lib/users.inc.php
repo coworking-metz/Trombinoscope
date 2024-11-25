@@ -61,12 +61,14 @@ function get_user_polaroids($uid, $options = [])
 
     // $data = json_decode($content, true);
 
+    $hash = md5(json_encode(get_reglages()));
+
     $ret = [
-        'big' => URL_PHOTOS . 'polaroid/size/big/' . $anonyme . $uid . '.jpg',
+        'big' => URL_PHOTOS . 'polaroid/size/big/' . $anonyme . $uid . '.jpg?'.$hash,
     ];
 
     if ($micro) {
-        $ret['micro'] = get_image_content(URL_PHOTOS . 'polaroid/size/micro/' . $anonyme . $uid . '.jpg', UN_JOUR);
+        $ret['micro'] = get_image_content(URL_PHOTOS . 'polaroid/size/micro/' . $anonyme . $uid . '.jpg?'.$hash, UN_JOUR);
     }
     return $ret;
 }
