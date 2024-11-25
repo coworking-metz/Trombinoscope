@@ -1,9 +1,6 @@
 <div class="infos">
     <div>
         <?= locationPresences($locations); ?>
-		<?php if(getNBVisitesToday()) {?>
-			<span><?=pluriel(getNBVisitesToday(),'visite');?> aujourd'hui</span>
-		<?php }?>
         <date><?= obtenirDateActuelle(); ?></date>
         <time class="loading"><?= date('H:i:s'); ?></time>
         <?php if ($admin) { ?>

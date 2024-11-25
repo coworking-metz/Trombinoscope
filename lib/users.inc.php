@@ -134,7 +134,13 @@ function locationPresences($locations)
 {
     $total = array_sum($locations);
     echo  '<span>'.pluriel($total, 'personnes présente').'</span>';
-    if(count($locations)<1) return;
+
+	if(getNBVisitesToday()) {
+		echo '<span>'.pluriel(getNBVisitesToday(),'visite').' aujourd\'hui</span>';
+		return;
+	}
+
+	if(count($locations)<1) return;
 
     $txt = [];
     foreach($locations as $slug => $nb) {
@@ -142,6 +148,7 @@ function locationPresences($locations)
     }
 
     echo '<span>'.implode(', ',$txt).'</span>';
+
 }
 
 function locationName($slug) {
