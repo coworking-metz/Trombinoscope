@@ -24,7 +24,8 @@ $version = '?' . filemtime($cssPath);
         }
     </style>
     <script>
-        const avent = <?= json_encode($avent); ?>
+        const master = <?= json_encode($master); ?>;
+        const avent = <?= json_encode($avent); ?>;
     </script>
     <script>
         const WP_API_URL = <?= json_encode(WP_API_URL) ?>

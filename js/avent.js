@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     if (!avent) return;
+    if (!master) {
+		console.log('Le tirage doit etre fait sur le trombi ?master=true');
+		return;
+	}
 
     const data = {
         tirages: await getTirages(),

@@ -418,7 +418,7 @@ figure .micro img {
     position: relative;
 }
 
-.user[data-gagnant="true"] .image.big:before {
+.user[data-gagnant="true"] .image.big:after{
     content: '';
     position: absolute;
     width: 30%;
@@ -454,6 +454,7 @@ figure .micro img {
 
 .user.bravo.display {
     opacity: 1;
+	z-index:99999999
 }
 
 .user.bravo.end {
