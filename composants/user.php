@@ -6,10 +6,10 @@
             <nav>
                 <?php if (!($user['visite'] ?? false)) { ?>
                     <?php if (!$user['membershipOk']) { ?>
-                        <span><img src="/images/adhesion.png"></span>
+                        <span class="erreur-adhesion"><img src="/images/adhesion.png"></span>
                     <?php } ?>
                     <?php if ($user['balance'] < 0) { ?>
-                        <span><img src="/images/ticket-red.png"></span>
+                        <span class="erreur-ticket"><img src="/images/ticket-red.png"></span>
                     <?php } ?>
                 <?php } ?>
             </nav>

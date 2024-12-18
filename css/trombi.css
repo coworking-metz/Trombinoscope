@@ -417,6 +417,10 @@ figure .micro img {
 .user[data-gagnant="true"] .image.big {
     position: relative;
 }
+.user[data-gagnant="true"]  .image.big{
+    filter: drop-shadow(0 0 0.75rem black);
+    scale: 1.1;
+}
 
 .user[data-gagnant="true"] .image.big:after{
     content: '';
@@ -467,8 +471,15 @@ figure .micro img {
 }
 
 
-
-
+body:not(:has(.user .erreur-adhesion)) .infos .erreur-adhesion {
+    display: none;
+}
+body:not(:has(.user .erreur-ticket)) .infos .erreur-ticket {
+    display: none;
+}
+.user:has([class*="erreur-"]) {
+    opacity: 0.5;
+}
 .user[data-location]:not([data-location=""]) .image:before {
     content: '';
     background: url(/images/poulailler.png) no-repeat center;

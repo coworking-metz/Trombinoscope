@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
     if (!avent) return;
-    if (!master) {
-		console.log('Le tirage doit etre fait sur le trombi ?master=true');
-		return;
-	}
 
     const data = {
         tirages: await getTirages(),
@@ -31,8 +27,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         bravo(gagnant)
         return console.log(`Tirage déjà fait pour le ${date}`);
     }
-    console.log(`Le tirage est à faire !`);
+	if (!master) {
+		console.log('Le tirage doit etre fait sur le trombi ?master=true');
+		return;
+	}
 
+    console.log(`Le tirage est à faire !`);
     if (heure < avent.heure_tirage)
         return console.log(`Ce n'est pas encore l'heure du tirage`);
 
@@ -57,15 +57,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
 
     }
-    function faireTirage() {
+    async function faireTirage() {
         const gagnant = pickRandomUser();
-        const user_id = gagnant.dataset.id;
+        const user_id = Number(gagnant.dataset.id);
         if (ilResteDesPersonneNonLaureatesAjourdHui()) {
             if (Object.values(data.tirages).includes(user_id)) {
                 console.log('Deja lauréat et il y a d\'autres personnes au cowo qui n\'ont pas encore gagné ! On recommence');
-                return faireTirage();
+				setTimeout(faireTirage,500);
+                return 
             }
         }
+		console.log('Gagnant : ',gagnant)
 
         const url = WP_API_URL + '/trombi/avent/tirage';
         const body = {
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
 
     }
-    async function ilResteDesPersonneNonLaureatesAjourdHui() {
+    function ilResteDesPersonneNonLaureatesAjourdHui() {
         const users = getUsers()
         for (const user of users) {
             if (!Object.values(data.tirages).includes(user.dataset.id)) {

@@ -9,10 +9,10 @@
     </div>
     <div>
         <div class="legende">
-            <div>
+            <div class="erreur-ticket">
                 <img src="/images/ticket-red.png"><span>Abo. ou tickets épuisés</span>
             </div>
-            <div>
+            <div class="erreur-adhesion">
             <img src="/images/adhesion.png"><span>Adhésion <?=date('Y');?> manquante</span>
             </div>
         </div>
