@@ -376,7 +376,11 @@ figure span.image.big {
     left: 50%;
     transform: translate(-50%, -50%); */
 }
-
+figure span.image.big > img {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
 
 .user.loading figure .image.big {
     opacity: 0;
@@ -470,16 +474,32 @@ figure .micro img {
     height: 50%;
 }
 
-
 body:not(:has(.user .erreur-adhesion)) .infos .erreur-adhesion {
     display: none;
 }
 body:not(:has(.user .erreur-ticket)) .infos .erreur-ticket {
     display: none;
 }
-.user:has([class*="erreur-"]) {
-    opacity: 0.5;
+.user:has([class*="erreur-"]) .le-polaroid{
+	border:4px dotted red;
+    box-sizing: border-box;
+	  animation: borderFade 1s infinite;
+	//filter: sepia(100%) saturate(1500%) hue-rotate(756grad) brightness(120%);
 }
+@keyframes borderFade {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: red;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+.user:has([class*="erreur-"]){
+}
+
 .user[data-location]:not([data-location=""]) .image:before {
     content: '';
     background: url(/images/poulailler.png) no-repeat center;

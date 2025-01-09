@@ -2,7 +2,8 @@
     <figure>
         <div class="image micro"><img src="<?= $user['polaroids']['micro'] ?? ''; ?>"></div>
 
-        <span class="image big" style="background-image:url(<?= $user['polaroids']['big']; ?>)">
+        <span class="image big" _style="background-image:url(<?= $user['polaroids']['big']; ?>)">
+			<img class="le-polaroid" src="<?= $user['polaroids']['big']; ?>">
             <nav>
                 <?php if (!($user['visite'] ?? false)) { ?>
                     <?php if (!$user['membershipOk']) { ?>
