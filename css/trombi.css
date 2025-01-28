@@ -376,7 +376,7 @@ figure span.image.big {
     left: 50%;
     transform: translate(-50%, -50%); */
 }
-figure span.image.big > img {
+figure span.image.big > img:not(.qr) {
 	position:absolute;
 	width:100%;
 	height:100%;
@@ -480,6 +480,13 @@ body:not(:has(.user .erreur-adhesion)) .infos .erreur-adhesion {
 body:not(:has(.user .erreur-ticket)) .infos .erreur-ticket {
     display: none;
 }
+.user .qr{
+	position: absolute;
+  width: 25%;
+top: 9%;
+  left: 10%;
+}
+
 .user:has([class*="erreur-"]) .le-polaroid{
 	border:4px dotted red;
     box-sizing: border-box;
