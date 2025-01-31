@@ -92,7 +92,15 @@ function get_users($delay = 15, $options = [])
     $data = get_content('https://tickets.coworking-metz.fr/api/current-members?key=' . TICKET_TOKEN . '&delay=' . $delay, 15 * UNE_MINUTE);
     $users = json_decode($data, true);
     $users = array_merge($users, getVisitesToday());
+
+	$nomades = get_reglage('nomades');
+
     foreach ($users as &$user) {
+		foreach($nomades as $nomade) {
+			if($nomade['wpUserId'] == $user['wpUserId']) {
+				$user['nomade']=true;
+			}
+		}
         $user['polaroids'] = get_user_polaroids($user['wpUserId'], ['anonyme' => $options['anonyme'] ?? false, 'micro' => $options['micro'] ?? true]);
     }
 
