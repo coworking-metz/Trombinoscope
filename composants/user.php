@@ -1,6 +1,12 @@
-<div class="user" data-debit="<?= ($user['balance'] ?? 0) < 0 ? 'true' : 'false'; ?>" data-adhesion="<?= ($user['membershipOk'] ?? true) ? 'true' : 'false'; ?>" data-anniversaire="<?= is_birthday($user) ? 'true' : 'false'; ?>" data-visiteur="<?= !empty($user['visiteur']) ? 'true' : 'false'; ?>" data-nomade="<?= !empty($user['nomade']) ? 'true' : 'false'; ?>" data-id="<?= $user['wpUserId'] ?? false; ?>" data-location="<?= $user['location'] ?? ''; ?>">
+<div class="user" data-debit="<?= ($user['balance'] ?? 0) < 0 ? 'true' : 'false'; ?>" data-adhesion="<?= ($user['membershipOk'] ?? true) ? 'true' : 'false'; ?>" data-anniversaire="<?= is_birthday($user) ? 'true' : 'false'; ?>" data-visiteur="<?= !empty($user['visiteur']) ? 'true' : 'false'; ?>" data-nomade="<?= !empty($user['nomade']) ? 'true' : 'false'; ?>" data-id="<?= $user['wpUserId'] ?? false; ?>" data-location="<?= $user['location'] ?? ''; ?>" data-badge="<?= $user['badgeId'] ? 'true': 'false'; ?>" data-cafe="<?= $user['cafe'] ? 'true': 'false'; ?>">
     <figure>
-        <div class="image micro"><img src="<?= $user['polaroids']['micro'] ?? ''; ?>"></div>
+        <div class="image micro">
+			<img src="<?= $user['polaroids']['micro'] ?? ''; ?>">
+			<span class="goodies">
+				<span class="badge" style="background-image:url(/images/badge.png)"></span>
+				<span class="cafe" style="background-image:url(/images/cafe.png)"></span>
+			</span>
+		</div>
 
         <span class="image big" _style="background-image:url(<?= $user['polaroids']['big']; ?>)">
             <img class="le-polaroid" src="<?= $user['polaroids']['big']; ?>">

@@ -9,6 +9,7 @@ if ($test) {
     $delay = 3000;
 }
 $users = get_users($delay, ['anonyme' => $anonyme, 'micro' => !$admin]);
+
 if ($test) {
 
     while (count($users) < $test) {

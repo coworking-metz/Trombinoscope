@@ -94,13 +94,14 @@ function get_users($delay = 15, $options = [])
     $users = array_merge($users, getVisitesToday());
 
 	$nomades = get_reglage('nomades');
-
+	$cafe = get_reglage('cafe');
     foreach ($users as &$user) {
 		foreach($nomades as $nomade) {
 			if($nomade['wpUserId'] == $user['wpUserId']) {
 				$user['nomade']=true;
 			}
 		}
+		$user['cafe'] = in_array($user['wpUserId'],$cafe) ? true : false;
         $user['polaroids'] = get_user_polaroids($user['wpUserId'], ['anonyme' => $options['anonyme'] ?? false, 'micro' => $options['micro'] ?? true]);
     }
 
