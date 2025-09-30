@@ -598,3 +598,7 @@ top: 9%;
 		background-position: center;
 	}
 }
+
+[data-debit="true"] .goodies {
+	display:none !important;
+}
