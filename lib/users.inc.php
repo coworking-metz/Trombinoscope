@@ -93,8 +93,8 @@ function get_users($delay = 15, $options = [])
     $users = json_decode($data, true);
     $users = array_merge($users, getVisitesToday());
 
-	$nomades = get_reglage('nomades');
-	$cafe = get_reglage('cafe');
+	$nomades = get_reglage('nomades')?:[];
+	$cafe = get_reglage('cafe')?:[];
     foreach ($users as &$user) {
 		foreach($nomades as $nomade) {
 			if($nomade['wpUserId'] == $user['wpUserId']) {
